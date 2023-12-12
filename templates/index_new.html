@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Portfolio Engine</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.min.css" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #ecf0f3, #ffffff);
+            transition: all 0.3s ease;
+        }
+
+        .wrapper {
+            max-width: 500px;
+            min-height: 500px;
+            margin: 80px auto;
+            padding: 40px 30px 30px 30px;
+            background-color: #ecf0f3;
+            border-radius: 15px;
+            box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+            animation: scaleIn 0.5s ease-in-out;
+        }
+
+        .form-field {
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 10px 30px;
+            color: #666;
+            font-size: 1.2rem;
+            border: none;
+            outline: none;
+            background: none;
+            border-bottom: 1px solid #666;
+            transition: border-bottom 0.3s ease;
+        }
+
+        .form-field i {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .form-field:hover i,
+        .form-field:hover input,
+        .form-field:hover select {
+            color: #03A9F4;
+            border-bottom: 1px solid #03A9F4;
+        }
+
+        .btn {
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            height: 50px;
+            background-color: #03A9F4;
+            color: #ffffff;
+            font-size: 1.2rem;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background-color: #039BE5;
+            box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .gallery {
+            padding: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .gallery img {
+            max-width: 300px;
+            margin: 20px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .wrapper {
+                margin: 30px 20px;
+                padding: 40px 15px 15px 15px;
+            }
+
+            .gallery img {
+                max-width: 100%;
+            }
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .quote-container {
+            max-width: 500px;
+            padding: 20px;
+            margin: 40px auto;
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Image Gallery -->
+    <div class="gallery">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <img src='static/images/investment1.jpg' alt="Investment Image 1">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <img src='static/images/investment2.jpg' alt="Investment Image 2">
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <img src='static/images/investment3.jpg' alt="Investment Image 3">
+            </div>
+            <!-- Add more images as needed -->
+        </div>
+    </div>
+
+    
+
+    <div class="wrapper">
+
+         <!-- Team Titans logo -->
+     <div class="logo-container" style="text-align: center; margin-bottom: 50px;">
+        <img src='static/images/titans.jpg' alt="Team Titans Logo" style="max-width: 300px;">
+    </div>
+
+        <form class="p-3 mt-3" action="/result" method="POST">
+            <div class="form-field">
+                <i class="fas fa-chart-line"></i>
+                <input type="number" id="name" name="name" min="5000" placeholder="Investment" required>
+            </div>
+            <div class="form-field">
+                <i class="fas fa-tasks"></i>
+                <select type="text" id="strategy" name="strategy" required>
+                    <option name='Ethical Investing' value='Ethical Investing'>Ethical Investing </option>
+                    <option name='Value Investing' value='Value Investing'>Value Investing </option>
+                    <option name='Growth Investing' value='Growth Investing'>Growth Investing </option>
+                    <option name='Index Investing' value='Index Investing'>Index Investing </option>
+                    <option name='Quality Investing' value='Quality Investing'>Quality Investing </option>
+                    <option name='Ethical and Value Investing' value='Ethical Investing and Value Investing'>Ethical Investing and Value Investing </option>
+                    <option name='Ethical and Growth Investing' value='Ethical Investing and Growth Investing'>Ethical Investing and Growth Investing </option>
+                    <option name='Ethical and Index Investing' value='Ethical Investing and Index Investing'>Ethical Investing and Index Investing </option>
+                    <option name='Ethical and Quality Investing' value='Ethical Investing and Quality Investing'>Ethical Investing and Quality Investing </option>
+                    <option name='Value and Growth Investing' value='Value Investing and Growth Investing'>Value Investing and Growth Investing </option>
+                    <option name='Value and Index Investing' value='Value Investing and Index Investing'>Value Investing and Index Investing </option>
+                    <option name='Value and Quality Investing' value='Value Investing and Quality Investing'>Value Investing and Quality Investing </option>
+                    <option name='Growth and Quality Investing' value='Growth Investing and Quality Investing'>Growth Investing and Quality Investing </option>
+                    <option name='Growth and Index Investing' value='Growth Investing and Index Investing'>Growth Investing and Index Investing </option>
+                    <option name='Quality and Index Investing' value='Quality Investing and Index Investing'>Quality Investing and Index Investing </option>
+                </select>
+            </div>
+            <button class="btn mt-3" type="Submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

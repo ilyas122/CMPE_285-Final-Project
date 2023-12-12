@@ -1,0 +1,28 @@
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../static/index.css">
+</head>
+<body>
+  <form class="grid" action="/result" method="POST">
+    {% if name %}
+    <center>
+      <h3 style="color: white;" class="let_space">You are about to invest {{name}} USD. Best of luck!</h3>
+    </center>
+    {% endif %}
+
+    <label for="name">How much would you like to invest? (Minimum: 5000 USD)</label>
+    <input type="number" id="name" name="name" min="5000" required>
+
+    <label for="strategy">Which investment strategy suits you best?</label>
+    <select type="text" id="strategy" name="strategy" required>
+      <!-- Your options go here -->
+    </select>
+
+    <center>
+      <input class="file_submit" type="Submit" value="Start Investing!">
+    </center>
+  </form>
+  <br><br><br>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--    <link rel="stylesheet" type="text/css" href="../static/index.css">-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cdbootstrap/css/cdb.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/cdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cdbootstrap/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9d1d9a82d2.js" crossorigin="anonymous"></script>
+
+
+
+</head>
+
+<body>
+
+
+<style>
+@import 'https://fonts.googleapis.com/css?family=Ubuntu:300, 400, 500, 700';
+
+*, *:after, *:before {
+  margin: 0;
+  padding: 0;
+}
+
+.svg-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+}
+
+svg {
+  path {
+    transition: .1s;
+  }
+
+  &:hover path {
+    d: path("M 800 300 Q 400 250 0 300 L 0 0 L 800 0 L 800 300 Z");
+  }
+}
+
+body {
+  background: #fff;
+  color: #333;
+  font-family: 'Ubuntu', sans-serif;
+  position: relative;
+}
+
+h3 {
+  font-weight: 400;
+}
+
+header {
+  color: #fff;
+  padding-top: 10vw;
+  text-align: center;
+}
+
+main {
+  background: linear-gradient(to bottom, #ffffff 0%, #dddee1 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 10vh 0 80vh;
+  position: relative;
+  text-align: center;
+  overflow: hidden;
+
+  &::after {
+    border-right: 2px dashed #eee;
+    content: '';
+    position: absolute;
+    top: calc(10vh + 1.618em);
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+  }
+}
+
+footer {
+  background: #dddee1;
+  padding: 5vh 0;
+  text-align: center;
+  position: relative;
+}
+
+small {
+  opacity: .5;
+  font-weight: 300;
+
+  a {
+    color: inherit;
+  }
+}
+
+
+</style>
+
+<script>
+(function() {
+  // Variables
+  var $curve = document.getElementById("curve");
+  var last_known_scroll_position = 0;
+  var defaultCurveValue = 350;
+  var curveRate = 3;
+  var ticking = false;
+  var curveValue;
+
+  // Handle the functionality
+  function scrollEvent(scrollPos) {
+    if (scrollPos >= 0 && scrollPos < defaultCurveValue) {
+      curveValue = defaultCurveValue - parseFloat(scrollPos / curveRate);
+      $curve.setAttribute(
+        "d",
+        "M 800 300 Q 400 " + curveValue + " 0 300 L 0 0 L 800 0 L 800 300 Z"
+      );
+    }
+  }
+
+  // Scroll Listener
+  // https://developer.mozilla.org/en-US/docs/Web/Events/scroll
+  window.addEventListener("scroll", function(e) {
+    last_known_scroll_position = window.scrollY;
+
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        scrollEvent(last_known_scroll_position);
+        ticking = false;
+      });
+    }
+
+    ticking = true;
+  });
+})();
+
+</script>
+
+<div class="svg-container">
+    <!-- I crated SVG with: https://codepen.io/anthonydugois/pen/mewdyZ -->
+    <svg viewbox="0 0 800 400" class="svg">
+      <path id="curve" fill="#50c6d8" d="M 800 300 Q 400 350 0 300 L 0 0 L 800 0 L 800 300 Z">
+      </path>
+    </svg>
+</div>
+
+<header>
+    <h1 style="text-align:center;">Stock Portfolio Recommendation Engine</h1>
+
+
+</div>
+
+       <div class="container">
+  <a class="card1" href="#">
+    <h3>Investment</h3>
+      <p  style=" text-align:center;">${{name}}</p>
+  </a>
+
+    <a class="card1" href="#">
+    <h3>Strategy</h3>
+    <p style="text-align: center;" >{{strategy}}</p>
+  </a>
+
+</div>
+
+
+
+    <div class="container">
+  <a class="card1" href="#">
+    <h3>{{stock1}}</h3>
+    <p  style="color:MediumSeaGreen; text-align:center;">${{stock1_price}}</p>
+      <p  style=" text-align:center;">${{stock1_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+
+    <a class="card1" href="#">
+    <h3>{{stock2}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center;" >${{stock2_price}}</p>
+        <p  style=" text-align:center;">${{stock2_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+
+    <a class="card1" href="#">
+    <h3>{{stock3}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock3_price}}</p>
+        <p  style=" text-align:center;">${{stock3_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+
+
+    <a class="card1" href="#">
+    <h3>{{stock4}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock4_price}}</p>
+        <p  style=" text-align:center;">${{stock4_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+
+        <a class="card1" href="#">
+    <h3>{{stock5}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock5_price}}</p>
+        <p  style=" text-align:center;">${{stock5_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+        <a class="card1" href="#">
+    <h3>{{stock6}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock6_price}}</p>
+        <p  style=" text-align:center;">${{stock6_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+        <a class="card1" href="#">
+    <h3>{{stock7}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock7_price}}</p>
+        <p  style=" text-align:center;">${{stock7_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+        <a class="card1" href="#">
+    <h3>{{stock8}}</h3>
+    <p style="color:MediumSeaGreen; text-align: center" >${{stock8_price}}</p>
+        <p  style=" text-align:center;">${{stock8_money}}</p>
+    <div class="go-corner" href="#">
+      <div class="go-arrow">
+        →
+      </div>
+    </div>
+  </a>
+
+
+
+</div>
+
+</header>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+
+* {
+  transition: all 0.3s ease-out;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+h3 {
+  color: #262626;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #666666;
+
+  &.small {
+    font-size: 14px;
+  }
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background-color: #00838d;
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card1 {
+  display: block;
+  position: relative;
+  max-width: 262px;
+  background-color: #f2f8f9;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #00838d;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease-out;
+  }
+
+  &:hover:before {
+    transform: scale(21);
+  }
+}
+
+.card1:hover {
+  p {
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  h3 {
+    transition: all 0.3s ease-out;
+    color: #ffffff;
+  }
+}
+
+}
+
+</style>
+
+<style>
+
+    .grid {
+        display: grid;
+        align-items: left;
+        /*border: 4mm ridge orange;
+        border-radius: 5px;*/
+    }
+    table {
+        /*border: 4mm ridge grey;
+        border-radius: 5px;*/
+    }
+    th {
+        border: solid lightblue;
+    }
+    li{
+        list-style: none;
+    }
+    .chart-container {
+        width: 20%;
+        height: 20%;
+        margin: auto;
+    }
+    .table-heading {
+        text-align: center;
+    }
+    .table-items-left {
+        text-align: center;
+        font-weight: bold;
+    }
+    .table-items-right {
+        text-align: center;
+        font-weight: 500;
+    }
+    label {
+        font-size: 25px;
+    }
+</style>
+<form class="grid">
+        <h2>
+
+
+            <div class="container">
+            <center><img src={{ url_pie }} alt="Image not found"/> </center> <br />
+            <center><img src={{ url}} alt="Image not found"/> </center> <br />
+            </div>
+
+
+        </h2>
+
+    </form>
+
+</body>
+
+</html>
