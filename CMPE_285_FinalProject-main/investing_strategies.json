@@ -1,0 +1,112 @@
+{
+  "Ethical Investing": [
+    {
+      "symbol": "TSLA",
+      "name": "Tesla, Inc.",
+      "percentage": "25"
+    },
+    {
+      "symbol": "UNFI",
+      "name": "United Natural Foods, Inc.",
+      "percentage": "20"
+    },
+    {
+      "symbol": "WY",
+      "name": "Weyerhaeuser Company",
+      "percentage": "15"
+    },
+    {
+      "symbol": "GOOG",
+      "name": "Alphabet Inc.",
+      "percentage": "40"
+    }
+  ],
+  "Growth Investing": [
+    {
+      "symbol": "WOOF",
+      "name": "Petco Health and Wellness Co. Inc.",
+      "percentage": "25"
+    },
+    {
+      "symbol": "LYB",
+      "name": "Lyondell Basell Industries NV",
+      "percentage": "30"
+    },
+    {
+      "symbol": "NLSN",
+      "name": "Nielsen Holdings PLC",
+      "percentage": "25"
+    },
+    {
+      "symbol": "SHOP",
+      "name": "Shopify Inc ",
+      "percentage": "20"
+    }
+  ],
+  "Index Investing": [
+    {
+      "symbol": "DJD",
+      "name": "Invesco Dow Jones Industrial Average Dividend ETF ",
+      "percentage": "35"
+    },
+    {
+      "symbol": "VDC",
+      "name": "Vanguard Consumer Staples Index Fund ETF",
+      "percentage": "30"
+    },
+    {
+      "symbol": "SCHE",
+      "name": "Schwab Emerging Markets Equity ETF ",
+      "percentage": "25"
+    },
+    {
+      "symbol": "IWV",
+      "name": "iShares Russell 3000 ETF ",
+      "percentage": "10"
+    }
+  ],
+  "Quality Investing": [
+    {
+      "symbol": "UNF",
+      "name": "UniFirst Corp",
+      "percentage": "35"
+    },
+    {
+      "symbol": "CMCSA",
+      "name": "Comcast Corporation  ",
+      "percentage": "30"
+    },
+    {
+      "symbol": "BK",
+      "name": "Bank of New York Mellon  ",
+      "percentage": "25"
+    },
+    {
+      "symbol": "DIS",
+      "name": "Walt Disney Co.",
+      "percentage": "10"
+    }
+  ],
+  "Value Investing": [
+    {
+      "symbol": "BAC",
+      "name": "Bank of America Corporation",
+      "percentage": "35"
+    },
+    {
+      "symbol": "KHC",
+      "name": "The Kraft Heinz Company",
+      "percentage": "25"
+    },
+    {
+      "symbol": "VZ",
+      "name": "Verizon Communications Inc.",
+      "percentage": "20"
+    },
+    {
+      "symbol": "DVA",
+      "name": "DaVita Inc.",
+      "percentage": "20"
+    }
+  ]
+}
