@@ -1,8 +1,14 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+from ml_model import predict_disease
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}},
+     allow_credentials=True,
+     allow_methods=["*"],
+     allow_headers=["*"])
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/doctor'
 db = SQLAlchemy(app)
 
@@ -35,6 +41,10 @@ def format_user(user):
 def home():
     return "Hello 295"
 
+
+
+
+
 # API endpoint for user signup
 @app.route('/signup', methods=['POST'])
 def signup():
@@ -57,6 +67,9 @@ def signup():
 
     return jsonify({"message": "User signed up successfully"}), 201
 
+
+
+
 # API endpoint for user login
 @app.route('/login', methods=['POST'])
 def login():
@@ -73,6 +86,9 @@ def login():
     else:
         return jsonify({"error": "Invalid email or password"}), 401
     
+
+
+
 # API endpoint to create a new user
 @app.route('/users', methods=['POST'])
 def create_user():
@@ -98,6 +114,10 @@ def get_all_users():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+
+
+
+
 # API endpoint to retrieve a specific user by email
 @app.route('/users/<email>', methods=['GET'])
 def get_user(email):
@@ -118,6 +138,9 @@ def update_user(email):
     db.session.commit()
     return jsonify(format_user(user)), 200
 
+
+
+
 # API endpoint to delete a user
 @app.route('/users/<email>', methods=['DELETE'])
 def delete_user(email):
@@ -127,6 +150,29 @@ def delete_user(email):
     db.session.delete(user)
     db.session.commit()
     return jsonify({"message": "User deleted successfully"}), 200
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.json
+        symptoms = data.get('symptoms', [])  # Ensure symptoms is a list
+
+        # Convert symptoms to integers if necessary
+        symptoms = [int(symptom) for symptom in symptoms]
+
+        # Call predict_disease function from ml_model module
+        prediction, confidence = predict_disease(symptoms)
+
+        return jsonify({
+            'prediction': prediction,
+            'confidence': confidence
+        })
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+
+    
 
 
 if __name__ == "__main__":
