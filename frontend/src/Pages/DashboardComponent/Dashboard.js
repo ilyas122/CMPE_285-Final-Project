@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function Dashboard() {
@@ -8,6 +9,13 @@ function Dashboard() {
     const [symptoms, setSymptoms] = useState('');
     const [prediction, setPrediction] = useState('');
     const [confidence, setConfidence] = useState('');
+    const navigate = useNavigate();
+
+
+
+    const handleConsultDoctor = () =>{
+        navigate('/consultdoctor');
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,20 +33,7 @@ function Dashboard() {
             console.error('Error:', error);
         }
     };
-
-
-
-
     return(
-        // <div>
-        //     <h1>Dashboard</h1>
-            
-        // </div>
-
-
-
-
-
         <div>
         <form onSubmit={handleSubmit}>
             <label>
@@ -51,12 +46,14 @@ function Dashboard() {
             </label>
             <button type="submit">Predict</button>
         </form>
-        {/* Display prediction and confidence if available */}
         {prediction && confidence && (
             <div>
                 <h2>Prediction: {prediction}</h2>
                 <p>Confidence: {confidence}</p>
+
+                <button type="button" onClick={handleConsultDoctor} className="btn btn-primary">Consult Doctot 👨‍⚕️</button>
             </div>
+            
         )}
     </div>
     )
