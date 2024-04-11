@@ -78,7 +78,7 @@ function Dashboard() {
         </div> */}
 
 
-<div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} onClick={toggleChatbot}>
+    <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} onClick={toggleChatbot}>
         <div>
             {/* Expanded chatbot content */}
             <span className="arrow-text">{isExpanded ? 'Minimize' : 'Expand'} Chatbot</span>
