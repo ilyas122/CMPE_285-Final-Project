@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Dashboard.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -13,15 +13,23 @@ function Dashboard() {
     const [confidence, setConfidence] = useState('');
     const navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
+    const contentRef = useRef(null);
 
-    const toggleHeight = () => {
-        const div = document.getElementById("expandable-div");
-        div.classList.toggle("expanded");
-      }
+
+    useEffect(() => {
+        if (isExpanded && contentRef.current) {
+            const height = contentRef.current.scrollHeight;
+            contentRef.current.style.height = `${height}px`;
+          } else if (contentRef.current) {
+            contentRef.current.style.height = '0';
+          }
+       }, [isExpanded]);
+
 
       const toggleChatbot = () => {
-        setIsExpanded(prevState => !prevState);
-    };
+        setIsExpanded(!isExpanded);
+        console.log(isExpanded);
+     };
 
     const handleConsultDoctor = () =>{
         navigate('/consultdoctor');
@@ -67,26 +75,16 @@ function Dashboard() {
         )}
 
 
-        {/* <div id="expandable-div">
-            <div  onClick={toggleHeight}>Click me to change height </div>
-        </div> */}
-
-        {/* <div class="chatbot-container" id="chatbot-container">
-            <div class="chatbot-content">
+        <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
+            <div ref={contentRef}>
+                <span className="healthgptTitle">Health GPT 🩺 <span onClick={toggleChatbot} ><ArrowUpwardSharpIcon/></span></span>
+                {isExpanded && (
+                    <div>
+                        <h1>Matter</h1>
+                    </div>
+                )}
             </div>
-            <button id="expand-button">Expand</button>
-        </div> */}
-
-
-<div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} onClick={toggleChatbot}>
-        <div>
-            {/* Expanded chatbot content */}
-            <span className="arrow-text">{isExpanded ? 'Minimize' : 'Expand'} Chatbot</span>
-            <ArrowUpwardSharpIcon className="arrow-icon" />
-            {/* Your expanded chatbot content here */}
         </div>
-    </div>
-
 
 
     </div>
