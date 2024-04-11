@@ -78,7 +78,11 @@ function Dashboard() {
         <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
             <div ref={contentRef}>
                 <span className="healthgptTitle">Health GPT 🩺 <span onClick={toggleChatbot} ><ArrowUpwardSharpIcon/></span></span>
-
+                {isExpanded && (
+                    <div>
+                        <h1>Matter</h1>
+                    </div>
+                )}
             </div>
         </div>
 
