@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Dashboard.css";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ArrowUpwardSharpIcon from '@mui/icons-material/ArrowUpwardSharp';
+
 
 
 function Dashboard() {
@@ -10,8 +12,16 @@ function Dashboard() {
     const [prediction, setPrediction] = useState('');
     const [confidence, setConfidence] = useState('');
     const navigate = useNavigate();
+    const [isExpanded, setIsExpanded] = useState(false);
 
+    const toggleHeight = () => {
+        const div = document.getElementById("expandable-div");
+        div.classList.toggle("expanded");
+      }
 
+      const toggleChatbot = () => {
+        setIsExpanded(prevState => !prevState);
+    };
 
     const handleConsultDoctor = () =>{
         navigate('/consultdoctor');
@@ -55,6 +65,30 @@ function Dashboard() {
             </div>
             
         )}
+
+
+        {/* <div id="expandable-div">
+            <div  onClick={toggleHeight}>Click me to change height </div>
+        </div> */}
+
+        {/* <div class="chatbot-container" id="chatbot-container">
+            <div class="chatbot-content">
+            </div>
+            <button id="expand-button">Expand</button>
+        </div> */}
+
+
+<div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} onClick={toggleChatbot}>
+        <div>
+            {/* Expanded chatbot content */}
+            <span className="arrow-text">{isExpanded ? 'Minimize' : 'Expand'} Chatbot</span>
+            <ArrowUpwardSharpIcon className="arrow-icon" />
+            {/* Your expanded chatbot content here */}
+        </div>
+    </div>
+
+
+
     </div>
     )
 }

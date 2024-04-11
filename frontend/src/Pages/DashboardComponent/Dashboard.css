@@ -1,0 +1,30 @@
+.chatbot-container {
+    position: fixed;
+    bottom: 20px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    width: 300px; /* Adjust as needed */
+    height: 50px; /* Initial height */
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden; /* Hide overflow content */
+    transition: height 0.3s ease; /* Smooth transition */
+}
+
+.chatbot-content {
+    height: 100%; /* Fills the entire height of the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+#expand-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #007bff; /* Button color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px 0 0 0; /* Rounded top-left corner */
+    padding: 10px 20px;
+    cursor: pointer;
+    height:100px; /* Adjust as needed */
+}
