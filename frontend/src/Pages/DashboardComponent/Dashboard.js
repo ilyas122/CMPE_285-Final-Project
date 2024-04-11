@@ -14,6 +14,8 @@ function Dashboard() {
     const navigate = useNavigate();
     const [isExpanded, setIsExpanded] = useState(false);
     const contentRef = useRef(null);
+    const [messages, setMessages] = useState([]);
+
 
 
     useEffect(() => {
@@ -26,9 +28,12 @@ function Dashboard() {
        }, [isExpanded]);
 
 
-      const toggleChatbot = () => {
+    const toggleChatbot = () => {
         setIsExpanded(!isExpanded);
         console.log(isExpanded);
+     };
+    const sendMessage = (message) => {
+        setMessages([...messages, message]);
      };
 
     const handleConsultDoctor = () =>{
@@ -51,6 +56,8 @@ function Dashboard() {
             console.error('Error:', error);
         }
     };
+
+
     return(
         <div>
         <form onSubmit={handleSubmit}>
@@ -80,8 +87,21 @@ function Dashboard() {
                 <span className="healthgptTitle">Health GPT 🩺 <span onClick={toggleChatbot} ><ArrowUpwardSharpIcon/></span></span>
                 {isExpanded && (
                     <div>
-                        <h1>Matter</h1>
+                    <h1>Matter</h1>
+                    <div className="chat-interface">
+                      {messages.map((message, index) => (
+                        <p key={index}>{message}</p>
+                      ))}
+                      <input type="text" placeholder="Type a message..." onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                         sendMessage(e.target.value);
+                         e.target.value = '';
+                        }
+                      }} />
                     </div>
+                  </div>
+
+
                 )}
             </div>
         </div>

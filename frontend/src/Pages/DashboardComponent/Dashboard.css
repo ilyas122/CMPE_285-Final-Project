@@ -25,3 +25,27 @@
     font-size: medium;
     font-weight: bold;
    }
+
+
+   .chat-interface {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 300px; /* Adjust based on your needs */
+    padding: 10px;
+    box-sizing: border-box;
+   }
+   
+   .chat-interface p {
+    margin-bottom: 10px;
+   }
+   
+   .chat-interface input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* position: fixed;
+    bottom: 1px; */
+
+   }
