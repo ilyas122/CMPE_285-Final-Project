@@ -15,6 +15,9 @@ function Dashboard() {
     const [isExpanded, setIsExpanded] = useState(false);
     const contentRef = useRef(null);
     const [messages, setMessages] = useState([]);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const dialogRef = useRef(null);
+    const [apiKey, setApiKey] = useState('');
 
 
 
@@ -27,6 +30,14 @@ function Dashboard() {
           }
        }, [isExpanded]);
 
+       useEffect(() => {
+        if (isDialogOpen) {
+            dialogRef.current.showModal();
+        } else {
+            dialogRef.current.close();
+        }
+    }, [isDialogOpen]);
+
 
     const toggleChatbot = () => {
         setIsExpanded(!isExpanded);
@@ -35,6 +46,23 @@ function Dashboard() {
     const sendMessage = (message) => {
         setMessages([...messages, message]);
      };
+
+
+     const openDialog = () => {
+        setIsDialogOpen(true);
+        // handleApiKeySubmit();
+    };
+
+    const closeDialog = () => {
+        setIsDialogOpen(false);
+    };
+
+    const handleApiKeySubmit = () => {
+        // Validate or use the API key here
+        console.log('API Key:', apiKey);
+        closeDialog();
+        toggleChatbot();
+    };
 
     const handleConsultDoctor = () =>{
         navigate('/consultdoctor');
@@ -84,7 +112,7 @@ function Dashboard() {
 
         <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
             <div ref={contentRef}>
-                <span className="healthgptTitle">Health GPT 🩺 <span onClick={toggleChatbot} ><ArrowUpwardSharpIcon/></span></span>
+                <span className="healthgptTitle">Health GPT 🩺 <span onClick={openDialog} ><ArrowUpwardSharpIcon/></span></span>
                 {isExpanded && (
                     <div>
                     <h1>Matter</h1>
@@ -106,6 +134,14 @@ function Dashboard() {
             </div>
         </div>
 
+
+
+<dialog ref={dialogRef} onDismiss={closeDialog}>
+    <h2>Enter Open API Key</h2>
+    <input type="text" placeholder="Enter Open API Key" />
+    <button onClick={handleApiKeySubmit}>Submit</button>
+    <button onClick={closeDialog}>Cancel</button>
+</dialog>
 
     </div>
     )
