@@ -18,6 +18,11 @@ function Dashboard() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const dialogRef = useRef(null);
     const [apiKey, setApiKey] = useState('');
+    const [userInput, setUserInput] = useState('');
+    const [response, setResponse] = useState('');
+    const [chatHistory, setChatHistory] = useState([]);
+
+
 
 
 
@@ -38,6 +43,10 @@ function Dashboard() {
         }
     }, [isDialogOpen]);
 
+        useEffect(() => {
+            setChatHistory([]);
+        },[]);
+
 
     const toggleChatbot = () => {
         setIsExpanded(!isExpanded);
@@ -50,7 +59,6 @@ function Dashboard() {
 
      const openDialog = () => {
         setIsDialogOpen(true);
-        // handleApiKeySubmit();
     };
 
     const closeDialog = () => {
@@ -84,6 +92,46 @@ function Dashboard() {
             console.error('Error:', error);
         }
     };
+
+    const chatbotrequest = async () => {
+        try {
+          // const res = await axios.post('http://ec2-3-94-212-26.compute-1.amazonaws.com:8000/chat', {
+            const res = await axios.post('http://localhost:5000/chat', {
+            openai_api_key: apiKey,
+            user_input: userInput,
+          });
+          setResponse(res.data.response);
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          // Fetch chat history after sending a message
+          getChatHistory();
+          setUserInput('');
+        }
+      };
+
+      const getChatHistory = async () => {
+        try {
+          // const res = await axios.get('http://ec2-3-94-212-26.compute-1.amazonaws.com:8000/get_chat_history');
+          const res = await axios.get('http://localhost:5000/get_chat_history');
+          setChatHistory(res.data);
+        } catch (error) {
+          console.error('Error fetching chat history:', error);
+          alert(`Error: ${error.message}`);
+        }
+      };
+
+      const validInput = () =>{
+        // if(inputType!=="" && databaseUri!=="" && openaiApiKey!==""){
+          if(apiKey!==""){
+    
+            chatbotrequest();
+        }
+        else{
+          alert("Enter valid details");
+        }
+    
+      }
 
 
     return(
@@ -120,7 +168,7 @@ function Dashboard() {
                       {messages.map((message, index) => (
                         <p key={index}>{message}</p>
                       ))}
-                      <input type="text" placeholder="Type a message..." onKeyPress={(e) => {
+                      <input type="text" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder="Type a message..." onKeyPress={(e) => {
                         if (e.key === 'Enter') {
                          sendMessage(e.target.value);
                          e.target.value = '';
@@ -134,14 +182,12 @@ function Dashboard() {
             </div>
         </div>
 
-
-
-<dialog ref={dialogRef} onDismiss={closeDialog}>
-    <h2>Enter Open API Key</h2>
-    <input type="text" placeholder="Enter Open API Key" />
-    <button onClick={handleApiKeySubmit}>Submit</button>
-    <button onClick={closeDialog}>Cancel</button>
-</dialog>
+        <dialog ref={dialogRef} onDismiss={closeDialog}>
+            <h2>Enter Open API Key</h2>
+            <input type="text" placeholder="Enter Open API Key" onChange={e => setApiKey(e.target.value)}/>
+            <button onClick={handleApiKeySubmit}>Submit</button>
+            <button onClick={closeDialog}>Cancel</button>
+        </dialog>
 
     </div>
     )
