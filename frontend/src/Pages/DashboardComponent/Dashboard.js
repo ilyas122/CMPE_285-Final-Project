@@ -262,7 +262,7 @@ const isValidApiKey = (apiKey) => {
       {prediction && confidence && (
         <div>
           <h2>Prediction: {prediction}</h2>
-          <p>Confidence: {confidence}</p>
+          <p>Confidence: {confidence} %</p>
 
           <button
             type="button"
