@@ -3,17 +3,19 @@
     bottom: 10px;
     right: 10px;
     width: 20vw;
-    height: 5vh; /* Initial height */
-    background-color: green;
+    height: 5vh; 
+    background-color: pink;
+    color: blue;
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    transition: height 0.3s ease; /* Smooth transition */
+    transition: height 0.3s ease; 
+    font-size: medium;
   }
   
   .chatbot-container.expanded {
     height: 50vh;
-    width: 30vw; /* Adjusted dynamically by JavaScript */
+    width: 30vw; 
   }
   
   .healthgptTitle {
@@ -26,23 +28,22 @@
     font-weight: bold;
   }
   
-  .chat-container-inner { /* Added for inner chat content styling */
-    display: flex;
+  .chat-container-inner { 
     flex-direction: column;
-    flex-grow: 1; /* Allow chat interface to fill remaining space */
+    flex-grow: 1; 
     padding: 10px;
   }
   
   .chat-interface {
     display: flex;
-    flex-direction: column; /* Reverse order to display new messages on top */
+    flex-direction: column; 
     overflow-y: auto;
-    max-height: 300px; /* Adjust based on your needs */
+    max-height: 400px; 
     padding: 10px;
     box-sizing: border-box;
   }
   
-  .chat-interface p { /* Removed as we're now using divs for chat history */
+  .chat-interface p { 
     margin-bottom: 10px;
   }
   
@@ -70,6 +71,10 @@
   
   .chat-input-container {
     display: flex;
+    position: fixed;
+    width: 29vw;
+    bottom: 20px;
+    /* left: 10px; */
   }
   
   .chat-input-container input {
@@ -78,19 +83,37 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
+    width: auto;
   }
   
-  /* Ensure the dialog is displayed above other content */
   .dialog-container {
     z-index: 1000;
   }
-  
-  /* Style the dialog backdrop */
-  .dialog-container::backdrop {
-    background: rgba(0, 0, 0, 0.5); /* Darken the background */
+
+  .move-arrow{
+    animation: move 1s infinite;
+    cursor: pointer;
+  }
+  @keyframes move {
+    0%, 100% {
+        transform: translateY(0);
+      }
+      25% {
+        transform: translateY(-5px);
+      }
+      50% {
+        transform: translateY(0);
+      }
+      75% {
+        transform: translateY(-5px);
+      }
+
   }
   
-  /* Additional styling for the dialog content */
+  .dialog-container::backdrop {
+    background: rgba(0, 0, 0, 0.5); 
+  }
+  
   .dialog-container {
     width: 400px;
     border-radius: 8px;
@@ -99,7 +122,6 @@
     background-color: #fff;
   }
   
-  /* Optional: Styling for buttons */
   .dialog-buttons {
     display: flex;
     justify-content: flex-end;

@@ -161,12 +161,8 @@ def delete_user(email):
 def predict():
     try:
         data = request.json
-        symptoms = data.get('symptoms', [])  # Ensure symptoms is a list
-
-        # Convert symptoms to integers if necessary
+        symptoms = data.get('symptoms', [])
         symptoms = [int(symptom) for symptom in symptoms]
-
-        # Call predict_disease function from ml_model module
         prediction, confidence = predict_disease(symptoms)
 
         return jsonify({
@@ -191,7 +187,7 @@ def get_chat_history():
 @app.route('/ask', methods=['POST'])
 def ask():
     user_input = request.json.get('user_input')
-    open_api_key_from_request = request.json.get('openai_api_key')  # Not recommended for production
+    open_api_key_from_request = request.json.get('openai_api_key')
     api_key = open_api_key_from_request
 
     if not user_input:
@@ -199,31 +195,24 @@ def ask():
 
     try:
 
-        if open_api_key_from_request != api_key:  # Replace with actual validation logic
+        if open_api_key_from_request != api_key:
             return jsonify({'error': 'Invalid API key'}), 401
-        # Retrieve API key from environment variable (replace with actual retrieval method)
-        # api_key = os.environ.get('OPENAI_API_KEY')
         client = openai.OpenAI(api_key=api_key)
-
-        
-
-        # Use the new API method for creating completions
         response = client.chat.completions.create(
             messages=[
                 {
                     "role": "system",
-                    "content": "You are a helpful assistant."
+                    "content": "You are chatting with HealthGPT, your health assistant. Please ask me any health-related questions."
                 },
                 {
                     "role": "user",
                     "content": user_input
                 }
             ],
-            model="gpt-3.5-turbo",  # Adjust the model here
+            model="gpt-3.5-turbo",  
             max_tokens=50
         )
-        answer = response.choices[0].message.content.strip()  # Access text from message.content
-
+        answer = response.choices[0].message.content.strip()
         chat_history.append({'user': 'User', 'text': user_input})
         chat_history.append({'user': 'Bot', 'text': answer})
 
@@ -234,7 +223,6 @@ def ask():
     #     return jsonify({'error': f'OpenAI API error: {str(e)}'}), 500
 
     except Exception as e:
-        # Catch other unexpected errors
         return jsonify({'error': str(e)}), 500
 
 
