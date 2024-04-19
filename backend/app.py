@@ -210,7 +210,7 @@ def ask():
                 }
             ],
             model="gpt-3.5-turbo",  
-            max_tokens=50
+            max_tokens=100
         )
         answer = response.choices[0].message.content.strip()
         chat_history.append({'user': 'User', 'text': user_input})
