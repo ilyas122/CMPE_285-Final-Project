@@ -3,7 +3,7 @@ from flask_cors import CORS
 from ml_model import predict_disease
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-
+import os
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}},
      allow_credentials=True,
