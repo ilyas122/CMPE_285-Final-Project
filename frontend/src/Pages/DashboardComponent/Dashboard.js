@@ -21,12 +21,15 @@ function Dashboard() {
     const [userInput, setUserInput] = useState('');
     const [response, setResponse] = useState('');
     const [chatHistory, setChatHistory] = useState([]);
+    const scrollToBottomRef = useRef(null); // Ref for scrolling to bottom
+
 
 
 
 
 
     useEffect(() => {
+
         if (isExpanded && contentRef.current) {
             const height = contentRef.current.scrollHeight;
             contentRef.current.style.height = `${height}px`;
@@ -44,8 +47,10 @@ function Dashboard() {
     }, [isDialogOpen]);
 
         useEffect(() => {
-            setChatHistory([]);
+            // setChatHistory([]);
+            getChatHistory();
         },[]);
+        
 
 
     const toggleChatbot = () => {
@@ -93,14 +98,42 @@ function Dashboard() {
         }
     };
 
-    const chatbotrequest = async () => {
+    // const chatbotrequest = async () => {
+    //     try {
+    //       console.log("Chat Bot");
+    //       // const res = await axios.post('http://ec2-3-94-212-26.compute-1.amazonaws.com:8000/chat', {
+    //         const res = await axios.post('http://localhost:5000/ask', {
+    //         openai_api_key: apiKey,
+    //         user_input: userInput,
+    //       });
+    //       console.log("Response:",res.data.response);
+    //       setResponse(res.data.response);
+    //     } catch (error) {
+    //       console.error('Error:', error);
+    //     } finally {
+    //       // Fetch chat history after sending a message
+    //       getChatHistory();
+    //       setUserInput('');
+    //     }
+    //   };
+
+      const chatbotrequest = async () => {
         try {
-          // const res = await axios.post('http://ec2-3-94-212-26.compute-1.amazonaws.com:8000/chat', {
-            const res = await axios.post('http://localhost:5000/chat', {
+          console.log("KEY:::",apiKey);
+          console.log("INPUTTT:::",userInput);
+          const res = await axios.post('http://localhost:5000/ask', { // Replace with your actual chat endpoint
             openai_api_key: apiKey,
             user_input: userInput,
           });
+          console.log("KEY:::",apiKey);
+          console.log("INPUTTT:::",userInput);
+          console.log(res.data);
           setResponse(res.data.response);
+          setMessages([...messages, userInput, res.data.response]); // Add user input and response to chat messages state
+
+          console.log("Full chat ::,",messages);
+          // Scroll to bottom after receiving response
+          scrollToBottomRef.current.scrollIntoView({ behavior: "smooth" });
         } catch (error) {
           console.error('Error:', error);
         } finally {
@@ -112,7 +145,6 @@ function Dashboard() {
 
       const getChatHistory = async () => {
         try {
-          // const res = await axios.get('http://ec2-3-94-212-26.compute-1.amazonaws.com:8000/get_chat_history');
           const res = await axios.get('http://localhost:5000/get_chat_history');
           setChatHistory(res.data);
         } catch (error) {
@@ -158,29 +190,65 @@ function Dashboard() {
         )}
 
 
-        <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
+        {/* <div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
             <div ref={contentRef}>
                 <span className="healthgptTitle">Health GPT 🩺 <span onClick={openDialog} ><ArrowUpwardSharpIcon/></span></span>
                 {isExpanded && (
                     <div>
                     <h1>Matter</h1>
                     <div className="chat-interface">
-                      {messages.map((message, index) => (
-                        <p key={index}>{message}</p>
+                      {chatHistory.map((message, index) => (
+                          <div key={index} className={message.user === 'User' ? 'user-message' : 'bot-message'}>
+                              {message.text}
+                          </div>
+
                       ))}
+                      <div ref={scrollToBottomRef} /> 
                       <input type="text" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder="Type a message..." onKeyPress={(e) => {
                         if (e.key === 'Enter') {
                          sendMessage(e.target.value);
+                         chatbotrequest()
                          e.target.value = '';
                         }
                       }} />
                     </div>
                   </div>
-
-
                 )}
             </div>
+        </div> */}
+
+
+
+<div className={`chatbot-container ${isExpanded ? 'expanded' : ''}`} >
+  <div ref={contentRef}>
+    <span className="healthgptTitle">Health GPT 🩺 
+      <span onClick={openDialog}>
+        <ArrowUpwardSharpIcon />
+      </span>
+    </span>
+    {isExpanded && (
+      <div className="chat-container-inner">
+        <div className="chat-interface">
+          {chatHistory.map((message, index) => (
+            <div key={index} className={message.user === 'User' ? 'user-message' : 'bot-message'}>
+              {message.text}
+            </div>
+          ))}
+          <div ref={scrollToBottomRef} /> {/* Added ref for scrolling */}
         </div>
+        <div className="chat-input-container">
+          <input type="text" value={userInput} onChange={e => setUserInput(e.target.value)} placeholder="Type a message..." onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              sendMessage(e.target.value);
+              chatbotrequest();
+              e.target.value = '';
+            }
+          }} />
+        </div>
+      </div>
+    )}
+  </div>
+</div>
 
         <dialog ref={dialogRef} onDismiss={closeDialog}>
             <h2>Enter Open API Key</h2>

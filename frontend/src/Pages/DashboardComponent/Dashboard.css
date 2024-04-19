@@ -9,86 +9,112 @@
     border-radius: 5px;
     overflow: hidden;
     transition: height 0.3s ease; /* Smooth transition */
-   }
-   
-   .chatbot-container.expanded {
+  }
+  
+  .chatbot-container.expanded {
     height: 50vh;
     width: 30vw; /* Adjusted dynamically by JavaScript */
-   }
-   
-   .healthgptTitle{
+  }
+  
+  .healthgptTitle {
     justify-content: center;
     align-items: center;
     display: flex;
-    text-align: center;    
+    text-align: center;
     color: black;
     font-size: medium;
     font-weight: bold;
-   }
-
-
-   .chat-interface {
+  }
+  
+  .chat-container-inner { /* Added for inner chat content styling */
     display: flex;
     flex-direction: column;
+    flex-grow: 1; /* Allow chat interface to fill remaining space */
+    padding: 10px;
+  }
+  
+  .chat-interface {
+    display: flex;
+    flex-direction: column; /* Reverse order to display new messages on top */
     overflow-y: auto;
     max-height: 300px; /* Adjust based on your needs */
     padding: 10px;
     box-sizing: border-box;
-   }
-   
-   .chat-interface p {
+  }
+  
+  .chat-interface p { /* Removed as we're now using divs for chat history */
     margin-bottom: 10px;
-   }
-   
-   .chat-interface input {
-    width: 100%;
+  }
+  
+  .user-message {
+    background-color: #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    text-align: right;
+    width: 20vw; 
+    display: inline-block;
+    margin-left: auto;
+  }
+  
+  .bot-message {
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    width: 20vw;
+    display: inline-block;
+    margin-right: auto;
+    text-align: left;
+  }
+  
+  .chat-input-container {
+    display: flex;
+  }
+  
+  .chat-input-container input {
+    flex-grow: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    /* position: fixed;
-    bottom: 1px; */
-
-   }
-
-
-
-
-
-   /* Ensure the dialog is displayed above other content */
-.dialog-container {
+    margin-right: 10px;
+  }
+  
+  /* Ensure the dialog is displayed above other content */
+  .dialog-container {
     z-index: 1000;
-   }
-   
-   /* Style the dialog backdrop */
-   .dialog-container::backdrop {
+  }
+  
+  /* Style the dialog backdrop */
+  .dialog-container::backdrop {
     background: rgba(0, 0, 0, 0.5); /* Darken the background */
-   }
-   
-   /* Additional styling for the dialog content */
-   .dialog-container {
+  }
+  
+  /* Additional styling for the dialog content */
+  .dialog-container {
     width: 400px;
     border-radius: 8px;
     border: 1px solid #888;
     padding: 20px;
     background-color: #fff;
-   }
-   
-   /* Optional: Styling for buttons */
-   .dialog-buttons {
+  }
+  
+  /* Optional: Styling for buttons */
+  .dialog-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
     margin-top: 20px;
-   }
-   
-   .dialog-buttons button {
+  }
+  
+  .dialog-buttons button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-   }
-   
-   .dialog-buttons button:hover {
+  }
+  
+  .dialog-buttons button:hover {
     background-color: #ddd;
-   }
-   
+  }
+  

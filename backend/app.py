@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import openai 
 import os
+from pydantic import BaseModel
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}},
@@ -175,6 +176,9 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
+
+
+    
 @app.route('/get_chat_history', methods=['GET'])
 def get_chat_history():
     try:
@@ -187,7 +191,7 @@ def get_chat_history():
 @app.route('/ask', methods=['POST'])
 def ask():
     user_input = request.json.get('user_input')
-    open_api_key_from_request = request.json.get('open_api_key')  # Not recommended for production
+    open_api_key_from_request = request.json.get('openai_api_key')  # Not recommended for production
     api_key = open_api_key_from_request
 
     if not user_input:
@@ -219,6 +223,10 @@ def ask():
             max_tokens=50
         )
         answer = response.choices[0].message.content.strip()  # Access text from message.content
+
+        chat_history.append({'user': 'User', 'text': user_input})
+        chat_history.append({'user': 'Bot', 'text': answer})
+
         return jsonify({'answer': answer})
 
     # except openai.error.OpenAIError as e:
