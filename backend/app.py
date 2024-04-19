@@ -3,7 +3,9 @@ from flask_cors import CORS
 from ml_model import predict_disease
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import openai 
 import os
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}},
      allow_credentials=True,
@@ -11,6 +13,8 @@ CORS(app, resources={r"/*": {"origins": "*"}},
      allow_headers=["*"])
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/doctor'
 db = SQLAlchemy(app)
+
+chat_history = [] 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -171,6 +175,61 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
     
+@app.route('/get_chat_history', methods=['GET'])
+def get_chat_history():
+    try:
+        return chat_history
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
+
+@app.route('/ask', methods=['POST'])
+def ask():
+    user_input = request.json.get('user_input')
+    open_api_key_from_request = request.json.get('open_api_key')  # Not recommended for production
+    api_key = open_api_key_from_request
+
+    if not user_input:
+        return jsonify({'error': 'No user input provided'}), 400
+
+    try:
+
+        if open_api_key_from_request != api_key:  # Replace with actual validation logic
+            return jsonify({'error': 'Invalid API key'}), 401
+        # Retrieve API key from environment variable (replace with actual retrieval method)
+        # api_key = os.environ.get('OPENAI_API_KEY')
+        client = openai.OpenAI(api_key=api_key)
+
+        
+
+        # Use the new API method for creating completions
+        response = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant."
+                },
+                {
+                    "role": "user",
+                    "content": user_input
+                }
+            ],
+            model="gpt-3.5-turbo",  # Adjust the model here
+            max_tokens=50
+        )
+        answer = response.choices[0].message.content.strip()  # Access text from message.content
+        return jsonify({'answer': answer})
+
+    # except openai.error.OpenAIError as e:
+    #     # Handle OpenAI API errors
+    #     return jsonify({'error': f'OpenAI API error: {str(e)}'}), 500
+
+    except Exception as e:
+        # Catch other unexpected errors
+        return jsonify({'error': str(e)}), 500
+
+
 
     
 
