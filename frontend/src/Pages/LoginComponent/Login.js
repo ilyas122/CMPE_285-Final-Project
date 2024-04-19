@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Login.css";
 // import {} from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -6,10 +6,14 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
     const navigate = useNavigate();
 
+    useEffect(() => {
+      sessionStorage.setItem('keyEntered', 'false');    
+    }, []); 
 
-const handleDashboardRoute = () =>{
-    navigate('/dashboard');
-}
+
+    const handleDashboardRoute = () =>{
+        navigate('/dashboard');
+    }
 
   return (
     <div>

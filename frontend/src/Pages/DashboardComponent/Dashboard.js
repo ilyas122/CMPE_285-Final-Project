@@ -28,22 +28,32 @@ function Dashboard() {
     } else if (contentRef.current) {
       contentRef.current.style.height = "0";
     }
-  }, [isExpanded]);
-
-  useEffect(() => {
+  
+    // Handle dialog visibility based on isDialogOpen
     if (isDialogOpen) {
       dialogRef.current.showModal();
     } else {
       dialogRef.current.close();
     }
-  }, [isDialogOpen]);
+    getChatHistory(); // Assuming getChatHistory is a function to fetch data
+  
+  }, [isExpanded, isDialogOpen]); // Dependency array includes both state variables
 
   useEffect(() => {
-    // setChatHistory([]);
-    getChatHistory();
+    // Clear chat history on initial mount
+    setChatHistory([]);  
+    // Dependency for content height and dialog visibility
   }, []);
 
+  useEffect(() => {
+    if (scrollToBottomRef.current) {
+      scrollToBottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+ }, [chatHistory]);
+  
+
   const toggleChatbot = () => {
+    console.log("TOGGLE");
     setIsExpanded(!isExpanded);
     console.log(isExpanded);
   };
@@ -52,7 +62,14 @@ function Dashboard() {
   };
 
   const openDialog = () => {
-    setIsDialogOpen(true);
+    if('true' === sessionStorage.getItem('keyEntered')){
+      toggleChatbot();
+    }
+    else{
+      console.log("OPEND DIALOG");
+      setIsDialogOpen(true);
+    }
+
   };
 
   const closeDialog = () => {
@@ -120,37 +137,41 @@ function Dashboard() {
 
 
   const handleApiKeySubmit = async () => {
-    if (!isValidApiKey(apiKey)) {
-        alert("Invalid API Key format. Please enter a valid API Key that starts with 'sk-' followed by 32 alphanumeric characters.");
-        return; 
-    }
-
-    try {
-        const response = await axios.get('https://api.openai.com/v1/engines', {
-            headers: {
-                'Authorization': `Bearer ${apiKey}`
-            }
-        });
-
-        console.log("API Key Validation Response:", response);
-        console.log("API Key:", apiKey);
-
-        closeDialog();
-        toggleChatbot();
-    } catch (error) {
-        if (error.response) {
-            const status = error.response.status;
-
-            if (status === 401) {
-                alert("Invalid API Key. Please check your key and try again.");
-            } else {
-                alert("An error occurred while validating your API Key. Please try again later.");
-            }
-        } else {
-            console.error("Network error or unexpected error:", error);
-            alert("A network error occurred while validating your API Key. Please check your connection and try again.");
+        if (!isValidApiKey(apiKey)) {
+            alert("Invalid API Key format. Please enter a valid API Key that starts with 'sk-' followed by 32 alphanumeric characters.");
+            return; 
         }
-    }
+
+        try {
+            const response = await axios.get('https://api.openai.com/v1/engines', {
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`
+                }
+            });
+
+            console.log("API Key Validation Response:", response);
+            console.log("API Key:", apiKey);
+            sessionStorage.setItem('keyEntered', 'true');
+            closeDialog();
+            toggleChatbot();
+            
+
+
+        } catch (error) {
+            if (error.response) {
+                const status = error.response.status;
+
+                if (status === 401) {
+                    alert("Invalid API Key. Please check your key and try again.");
+                } else {
+                    alert("An error occurred while validating your API Key. Please try again later.");
+                }
+            } else {
+                console.error("Network error or unexpected error:", error);
+                alert("A network error occurred while validating your API Key. Please check your connection and try again.");
+            }
+        }
+    
 };
 
 const isValidApiKey = (apiKey) => {
@@ -256,9 +277,8 @@ const isValidApiKey = (apiKey) => {
       <div className={`chatbot-container ${isExpanded ? "expanded" : ""}`}>
         <div ref={contentRef}>
           <span className="healthgptTitle" onClick={isExpanded ? toggleChatbot : openDialog}>
-            Health GPT 🩺
+            <p>Health GPT 🩺</p>
             <span onClick={isExpanded ? closeDialog : openDialog} className="move-arrow">
-              {/* <ArrowUpwardSharpIcon /> */}
               {isExpanded ? <ArrowDownwardSharpIcon /> : <ArrowUpwardSharpIcon />}
             </span>
           </span>
