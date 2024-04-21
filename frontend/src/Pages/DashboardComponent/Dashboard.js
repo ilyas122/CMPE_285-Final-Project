@@ -4,6 +4,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
 import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
+import Avatar from '@mui/material/Avatar';
+import PersonIcon from '@mui/icons-material/Person';
+import ChatIcon from '@mui/icons-material/Chat';
 
 function Dashboard() {
   const [symptoms, setSymptoms] = useState("");
@@ -257,7 +260,7 @@ const isValidApiKey = (apiKey) => {
             onChange={(e) => setSymptoms(e.target.value)}
           />
         </label>
-        <button type="submit">Predict</button>
+        <button type="submit">Predict button</button>
       </form>
       {prediction && confidence && (
         <div>
@@ -276,10 +279,10 @@ const isValidApiKey = (apiKey) => {
 
       <div className={`chatbot-container ${isExpanded ? "expanded" : ""}`}>
         <div ref={contentRef}>
-          <span className="healthgptTitle" onClick={isExpanded ? toggleChatbot : openDialog}>
+          <span className="healthgptTitle gradient" onClick={isExpanded ? toggleChatbot : openDialog}>
             <p>Health GPT 🩺</p>
             <span onClick={isExpanded ? closeDialog : openDialog} className="move-arrow">
-              {isExpanded ? <ArrowDownwardSharpIcon /> : <ArrowUpwardSharpIcon />}
+              {isExpanded ? <ArrowDownwardSharpIcon style={{ color: 'white' }}/> : <ArrowUpwardSharpIcon style={{ color: 'white' }}/>}
             </span>
           </span>
           {isExpanded && (
@@ -293,6 +296,33 @@ const isValidApiKey = (apiKey) => {
                     }
                   >
                     {message.text}
+
+                    {/* <div className="message-content">
+                      {message.user === "User" ? <Avatar><PersonIcon /></Avatar> : <Avatar><ChatIcon /></Avatar>}
+                      <div className="message-text">{message.text}</div>
+                    </div> */}
+
+
+                      {/* {message.user === "User" ? (
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <Avatar className="avatar">
+                              <PersonIcon />
+                            </Avatar>
+                            <div>{message.text}</div>
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <div>{message.text}</div>
+                            <Avatar className="avatar">
+                              <ChatIcon />
+                            </Avatar>
+                          </div>
+                        )} */}
+
+
+
+
+
                   </div>
                 ))}
                 <div ref={scrollToBottomRef} /> {/* Added ref for scrolling */}
@@ -317,15 +347,26 @@ const isValidApiKey = (apiKey) => {
         </div>
       </div>
 
-      <dialog ref={dialogRef} onDismiss={closeDialog}>
-        <h2>Enter Open API Key</h2>
-        <input
-          type="text"
-          placeholder="Enter Open API Key"
-          onChange={(e) => setApiKey(e.target.value)}
-        />
-        <button onClick={handleApiKeySubmit}>Submit</button>
-        <button onClick={closeDialog}>Cancel</button>
+      <dialog ref={dialogRef} onDismiss={closeDialog} className="dialog-container">
+        <div className="row">
+          <h2>Enter Open API Key🔐 </h2>
+        </div>
+        <div className="row">
+          <input
+            type="text" placeholder="Enter Open API Key" onChange={(e) => setApiKey(e.target.value)}
+          />
+        </div>
+        <div className="row">
+          <div className="col">
+          <button onClick={handleApiKeySubmit} type="button" class="btn btn-primary dialog-buttons">Submit</button>
+          </div>
+          <div className="col">
+          <button onClick={closeDialog} type="button" class="btn btn-primary dialog-buttons">Cancel</button>
+          </div>
+        </div>
+        
+        
+        
       </dialog>
     </div>
   );
