@@ -4,10 +4,10 @@
     right: 10px;
     width: 20vw;
     height: 5vh; 
-    background-color: pink;
-    color: blue;
+    background-color: black;
+    color: black;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     transition: height 0.3s ease; 
     font-size:medium;
@@ -53,25 +53,79 @@
   }
   
   .user-message {
-    background-color: #ddd;
+    /* background-color: #ddd;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px;
     margin-bottom: 5px;
     text-align: right;
     width: 20vw; 
     display: inline-block;
     margin-left: auto;
+    border-width: 10px 10px 0 0; */
+
+
+    background-color: #c2e0f5; /* Light blue for user messages (adjust as needed) */
+    padding: 10px;
+    border-radius: 25px 25px 5px 25px; /* Curved right bottom corner */
+    margin-bottom: 5px;
+    text-align: right;
+    width: 20vw; /* Adjust width as needed */
+    display: inline-block;
+    margin-left: auto;
+    position: relative; 
+
+  }
+
+  .user-message:after {
+    content: "";
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 15px;
+    height: 30px;
+    border-style: solid;
+    border-width: 0 0 10px 10px;
+    border-color: transparent transparent #c2e0f5 transparent; /* Match user message color */
   }
   
   .bot-message {
     background-color: #f5f5f5;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 20px 20px 20px 0px;
     margin-bottom: 5px;
     width: 20vw;
     display: inline-block;
     margin-right: auto;
     text-align: left;
+  }
+
+  .message-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .message-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .message-text {
+    /* background-color: #f5f5f5; */
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    max-width: 70%;
+  }
+  
+  .avatar {
+    margin-right: 10px;
+  }
+
+  .gradient{
+    background-color: #FEE140;
+    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
+    -webkit-background-clip: text;
+    color: transparent;
   }
   
   .chat-input-container {
@@ -129,7 +183,9 @@
   
   .dialog-buttons {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     gap: 10px;
     margin-top: 20px;
   }
@@ -137,6 +193,7 @@
   .dialog-buttons button {
     padding: 10px 20px;
     border: none;
+    /* width:10px; */
     border-radius: 5px;
     cursor: pointer;
   }
