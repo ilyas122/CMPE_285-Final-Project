@@ -5,12 +5,14 @@ import Dashboard from './Pages/DashboardComponent/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ConsultDoctor from './Pages/ConsultDoctorComponent/ConsultDoctor';
 import DoctorDashboard from './Pages/DoctorDashboardComponent/DoctorDashboard';
+import SignUp from './Pages/SignUpComponent/SignUp';
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element = {<Login/>}></Route>
+        <Route path="/signup" element = {<SignUp/>}></Route>
         <Route path="/dashboard" element = {<Dashboard/>}></Route>
         <Route path="/consultdoctor" element = {<ConsultDoctor/>}></Route>
         <Route path="/doctordashboard" element = {<DoctorDashboard/>}></Route>
