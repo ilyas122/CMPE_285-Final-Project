@@ -1,15 +1,50 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Dashboard.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Select from 'react-select';
+import { Box, Button, Typography, LinearProgress } from '@mui/material';
 import ArrowUpwardSharpIcon from "@mui/icons-material/ArrowUpwardSharp";
 import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
 
+const options = [
+  { value: '1', label: 'Cough' },
+  { value: '2', label: 'Cold' },
+  { value: '3', label: 'Fever' },
+  { value: '4', label: 'Itching' },
+  { value: '5', label: 'Nausea' },
+  { value: '6', label: 'Stomach Pain' },
+  { value: '7', label: 'Headache' },
+  { value: '8', label: 'Vomiting' },
+  { value: '9', label: 'Joint Pain' },
+  { value: '10', label: 'Malaria' },
+  { value: '11', label: 'Cough' },
+  { value: '12', label: 'Cold' },
+  { value: '13', label: 'Fever' },
+  { value: '14', label: 'Itching' },
+  { value: '15', label: 'Nausea' },
+  { value: '16', label: 'Stomach Pain' },
+  { value: '17', label: 'Headache' },
+  { value: '18', label: 'Vomiting' },
+  { value: '19', label: 'Joint Pain' },
+  { value: '20', label: 'Malaria' },
+  { value: '21', label: 'Cough' },
+  { value: '22', label: 'Cold' },
+  { value: '23', label: 'Fever' },
+  { value: '24', label: 'Itching' },
+  { value: '25', label: 'Nausea' },
+  { value: '26', label: 'Stomach Pain' },
+  { value: '27', label: 'Headache' },
+  { value: '28', label: 'Vomiting' },
+  { value: '29', label: 'Joint Pain' },
+  { value: '30', label: 'Malaria' },
+];
+
+
 function Dashboard() {
+  const [selected, setSelected] = useState([]);
   const [symptoms, setSymptoms] = useState("");
   const [prediction, setPrediction] = useState("");
   const [confidence, setConfidence] = useState("");
-  const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef(null);
   const [messages, setMessages] = useState([]);
@@ -180,36 +215,41 @@ const isValidApiKey = (apiKey) => {
   return true;
 };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("Type of symptoms:", typeof symptoms);
+  //   try {
+  //     const symptomsArray = symptoms
+  //       .split(",")
+  //       .map((symptom) => parseInt(symptom.trim()));
+  //     const response = await axios.post("http://localhost:5000/predict", {
+  //       symptoms: symptomsArray,
+  //     });
+  //     const data = response.data;
+  //     console.log("Response:", data);
 
+  //     setPrediction(data.prediction);
+  //     setConfidence(data.confidence);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
-
-
-
-
-
-  const handleConsultDoctor = () => {
-    navigate("/consultdoctor");
-  };
-
-  const handleSubmit = async (e) => {
+  const handlePredict = async (e) => {
     e.preventDefault();
-    console.log("Type of symptoms:", typeof symptoms);
+    console.log('Type of symptoms:', typeof symptoms);
+    const symptomsArray = selected.map(symptom => parseInt(symptom.value));
     try {
-      const symptomsArray = symptoms
-        .split(",")
-        .map((symptom) => parseInt(symptom.trim()));
-      const response = await axios.post("http://localhost:5000/predict", {
-        symptoms: symptomsArray,
-      });
-      const data = response.data;
-      console.log("Response:", data);
-
-      setPrediction(data.prediction);
-      setConfidence(data.confidence);
+        //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
+        const response = await axios.post('http://localhost:5000/predict', { symptoms: symptomsArray });
+        const data = response.data;
+        console.log('Response:', data);
+        setPrediction(data.prediction);
+        setConfidence(data.confidence);
     } catch (error) {
-      console.error("Error:", error);
+        console.error('Error:', error);
     }
-  };
+};
 
   const chatbotrequest = async () => {
     try {
@@ -244,11 +284,20 @@ const isValidApiKey = (apiKey) => {
     }
   };
 
+  const handleSelectionChange = (selectedOptions) => {
+    setSelected(selectedOptions);
+    setPrediction('');
+    setConfidence(0);
+};
+
+const handlePage = () => {
+    window.location.href = '/consultdoctor';
+};
 
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <label>
           Enter Symptoms (separated by commas):
           <input
@@ -272,7 +321,53 @@ const isValidApiKey = (apiKey) => {
             Consult Doctot 👨‍⚕️
           </button>
         </div>
-      )}
+      )} */}
+      
+      <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'linear-gradient(to right, #00f260, #0575e6)' }}>
+            <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
+            <Select
+                options={options}
+                isMulti
+                value={selected}
+                onChange={handleSelectionChange}
+                name="symptoms"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                menuMaxHeight={100}
+                styles={{
+                    container: (provided) => ({
+                        ...provided,
+                        width: '800px',
+                        marginBottom: '30px'
+                    }),
+                    menu: (provided) => ({
+                        ...provided,
+                        zIndex: 9999,
+                        maxHeight: '150px',
+                        backgroundColor: '#fff',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        borderRadius: '4px'
+                    }),
+                    option: (provided, state) => ({
+                        ...provided,
+                        backgroundColor: state.isSelected ? '#d3d3d3' : '#fff',
+                        '&:hover': {
+                            backgroundColor: '#d3d3d3'
+                        }
+                    })
+                }}
+            />
+            <Button variant='contained' size='large' onClick={handlePredict} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Predict</Button>
+            {prediction && confidence && (
+                <Box sx={{ width: '800px', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)' }}>
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '10px' }}>Confidence Score:</Typography>
+                    <LinearProgress variant="determinate" value={confidence} style={{ marginBottom: '10px', backgroundColor: '#e0e0e0', borderRadius: '5px' }} />
+                    <Typography variant="subtitle1" gutterBottom>{`Predicted disease: ${prediction} (${confidence}%)`}</Typography>
+                    <Button variant='contained' size='large' onClick={handlePage} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Consult</Button>
+                </Box>
+            )}            
+        </div>
+      
 
       <div className={`chatbot-container ${isExpanded ? "expanded" : ""}`}>
         <div ref={contentRef}>
