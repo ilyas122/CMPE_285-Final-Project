@@ -58,6 +58,7 @@ function Login() {
                                     </div>
                                     <button type="submit" className="btn btn-primary">Login</button>
                                 </form>
+                                <button className="btn btn-primary" onClick={()=>navigate('/signup')}>Sign Up</button>
                             </div>
                         </div>
                     </div>
