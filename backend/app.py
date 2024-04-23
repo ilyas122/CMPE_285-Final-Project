@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+from flask_mail import Mail, Message
 from flask_cors import CORS
 from ml_model import predict_disease
 from flask_sqlalchemy import SQLAlchemy
@@ -16,8 +17,23 @@ CORS(app, resources={r"/*": {"origins": "*"}},
      allow_credentials=True,
      allow_methods=["*"],
      allow_headers=["*"])
+# Configure CORS for specific endpoints
+#CORS(app, resources={r"/send-mail": {"origins": "*"}}, allow_credentials=True, allow_methods=["POST"], allow_headers=["Content-Type"])
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/sample'
 db = SQLAlchemy(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+# Configure Flask-Mail
+app.config['MAIL_DEFAULT_SENDER'] = 'masterproject@fastmail.com'
+app.config['MAIL_SERVER'] = 'smtp.fastmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'masterproject@fastmail.com'  # Replace with your Gmail email
+app.config['MAIL_PASSWORD'] = 'hu65tebh7kws6eta'         # Replace with your Gmail password
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+# Initialize Flask-Mail
+mail = Mail(app)
    
 
 # Define Disease model
@@ -94,7 +110,28 @@ def format_user(user):
         "doctor_id":user.doctor_id
     }
 
+# API endpoint for sending a "Hello" email
+@app.route('/send-mail', methods=['POST'])
+def send_hello_email():
+    data = request.json
+    user_email = data.get('user_email')
+    doctor = data.get('doctor')
+    print("Doctor Object:", doctor)
+    doctor_name = doctor.get('name')
+    doctor_location = doctor.get('location')
+    doctor_speciality = doctor.get('speciality')
+    doctor_contact = doctor.get('contact')
+    # Create email message
+    msg = Message('Hello', recipients=[user_email])
+    #msg.body = f"Hello there! This is a Master project test email.nLocation: {doctor_location}"
+    msg.body = f"Hello there!\n\nHere are the details of your doctor:\n\nName: {doctor_name}\nLocation: {doctor_location}\nSpeciality: {doctor_speciality}\nContact: {doctor_contact}\n\nThank you for choosing our service."
 
+    try:
+        # Send email
+        mail.send(msg)
+        return jsonify({"message": "Email sent successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route('/')
 def home():
