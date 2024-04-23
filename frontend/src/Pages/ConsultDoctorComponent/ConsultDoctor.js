@@ -25,14 +25,17 @@ function ConsultDoctor() {
         window.history.back(); // Go back to the previous page
     };
 
-    const handleActionClick = async () => {
+    const handleActionClick = async (doctor) => {
         try {
+            console.log("1doc:",doctor)
             console.log("reached");
             // Get user data from local storage
             const userEmail = localStorage.getItem('email');
             
             // Update user record in the database with the selected doctor's ID
             await axios.put(`http://127.0.0.1:5000/users/${userEmail}`, { doctor_id: selectedDoctorId });
+            
+            await axios.post('http://127.0.0.1:5000/send-mail', { user_email: userEmail, doctor: doctor });
             
             // Redirect or perform any other action after the update
         } catch (error) {
@@ -72,7 +75,7 @@ function ConsultDoctor() {
                                         <Button 
                                             variant="contained" 
                                             color="primary" 
-                                            onClick={() => {setSelectedDoctorId(doctor.id);handleActionClick();}}
+                                            onClick={() => {setSelectedDoctorId(doctor.id);handleActionClick(doctor);}}
                                         >
                                             Action
                                         </Button>
