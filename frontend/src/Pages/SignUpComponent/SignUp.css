@@ -1,0 +1,38 @@
+/* h1{
+    background-color: red;
+    color: blue;
+} */
+.container{
+    margin:0px !important;
+}
+.leftLoginOutlier{
+    height: 100vh;
+    background-color:black;
+    color: white;
+}
+.RightLoginOutlier{
+    height: 100vh;
+    background-color:white;
+    color: black;
+}
+
+.loginContainer{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    min-height: 90vh; /* Ensure login box is visible even on full screen */
+    /* background-color: #f0f0f0; */   
+}
+.loginBox{
+    border-color: black;
+    border-radius: 25px;
+    background-color:black;
+    color: white;
+    min-width: 30vw;
+    min-height: 50vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-align: center;
+
+}
