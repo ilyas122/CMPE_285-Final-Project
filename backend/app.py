@@ -298,13 +298,37 @@ def update_user(email):
     user = User.query.filter_by(email=email).first()
     if user is None:
         return jsonify({"error": "User not found"}), 404
+
     data = request.json
-    selected_doctor_id = data.get('doctor_id')
-    user.doctor_id = selected_doctor_id
-    # user.password = data.get('password', user.password)
+    user.doctor_id = data.get('doctor_id', user.doctor_id)
+    user.fullname = data.get('fullname', user.fullname)
+    user.location = data.get('location', user.location)
+    user.password = data.get('password', user.password)
+    # Update other user attributes similarly as needed
+
     db.session.commit()
     return jsonify(format_user(user)), 200
 
+
+# API endpoint to update doctor details based on email
+@app.route('/doctors/<email>', methods=['PUT'])
+def update_doctor_by_email(email):
+    doctor = Doctor.query.filter_by(email=email).first()
+    if doctor is None:
+        return jsonify({"error": "Doctor not found"}), 404
+    
+    data = request.json
+    # Update doctor details based on the provided data
+    doctor.name = data.get('name', doctor.name)
+    doctor.speciality = data.get('speciality', doctor.speciality)
+    doctor.location = data.get('location', doctor.location)
+    doctor.contact = data.get('contact', doctor.contact)
+    
+    # Commit changes to the database
+    db.session.commit()
+    
+    # Return updated doctor details
+    return jsonify(format_doctor(doctor)), 200
 
 
 
