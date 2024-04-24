@@ -7,6 +7,8 @@ import ConsultDoctor from './Pages/ConsultDoctorComponent/ConsultDoctor';
 import DoctorDashboard from './Pages/DoctorDashboardComponent/DoctorDashboard';
 import SignUp from './Pages/SignUpComponent/SignUp';
 import DoctorCards from './Pages/DoctorCardsComponent/DoctorCards';
+import DoctorProfile from './Pages/DoctorProfileComponent/DoctorProfile';
+import UserProfile from './Pages/UserProfileComponent/UserProfile';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="/consultdoctor" element = {<ConsultDoctor/>}></Route>
         <Route path="/doctordashboard" element = {<DoctorDashboard/>}></Route>
         <Route path="/doctorcards" element = {<DoctorCards/>}></Route>
+        <Route path="/doctorprofile" element = {<DoctorProfile/>}></Route>
+        <Route path="/userprofile" element = {<UserProfile/>}></Route>
       </Routes>
     </Router>
   );
