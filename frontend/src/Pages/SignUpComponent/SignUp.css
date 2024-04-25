@@ -1,38 +1,84 @@
-/* h1{
-    background-color: red;
-    color: blue;
-} */
-.container{
-    margin:0px !important;
-}
-.leftLoginOutlier{
-    height: 100vh;
-    background-color:black;
-    color: white;
-}
-.RightLoginOutlier{
-    height: 100vh;
-    background-color:white;
-    color: black;
+/* SignUp.css */
+
+/* Container */
+.container {
+    margin: 0 !important;
 }
 
-.loginContainer{
+/* Left Container */
+.leftLoginOutlier {
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: flex;
-    min-height: 90vh; /* Ensure login box is visible even on full screen */
-    /* background-color: #f0f0f0; */   
 }
-.loginBox{
+
+/* Right Container */
+.RightLoginOutlier {
+    height: 100vh;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Container */
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+/* Login Box */
+.loginBox {
     border-color: black;
     border-radius: 25px;
-    background-color:black;
+    background-color: black;
     color: white;
     min-width: 30vw;
     min-height: 50vh;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: flex;
+    padding: 20px;
     text-align: center;
+}
 
+/* Form Inputs */
+.border {
+    border: 1px solid #ced4da;
+}
+
+.p-2 {
+    padding: 0.5rem !important;
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+/* Checkbox */
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+/* Submit Button */
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+/* Already have an account link */
+a {
+    color: blue;
+    text-decoration: underline;
 }
