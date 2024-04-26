@@ -9,6 +9,7 @@ function UserProfile() {
     email: "",
     location: "",
     password: "",
+    doctor_id:"",
     // Add other fields as needed
   });
 
@@ -19,6 +20,7 @@ function UserProfile() {
         const userEmail = localStorage.getItem("email");
         const response = await axios.get(`http://127.0.0.1:5000/users/${userEmail}`);
         setUser(response.data);
+        console.log("USER:",response.data)
         setFormData(response.data); // Set initial form data
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -68,6 +70,14 @@ function UserProfile() {
               />
               <input
                 type="text"
+                name="doctorid"
+                value={formData.doctor_id}
+                onChange={handleChange}
+                placeholder="Doctor Id"
+                disabled // DoctorId cannot be edited
+              />
+              <input
+                type="text"
                 name="location"
                 value={formData.location}
                 onChange={handleChange}
@@ -87,6 +97,7 @@ function UserProfile() {
             <div>
               <p>Name: {user.fullname}</p>
               <p>Email: {user.email}</p>
+              <p>Doctor Id: {user.doctor_id}</p>
               <p>Location: {user.location}</p>
               <p>password: {user.password}</p>
               {/* Display other details */}
