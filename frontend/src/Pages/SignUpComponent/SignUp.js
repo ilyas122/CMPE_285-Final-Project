@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SignUp.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Header from "./Header";
 
 function SignUp() {
     const navigate = useNavigate();
@@ -36,6 +37,8 @@ function SignUp() {
     };
 
     return (
+        <>
+        <Header />
         <div className="container LoginOutlier">
     <div className="row">
         <div className="col-6 leftLoginOutlier">
@@ -104,7 +107,10 @@ function SignUp() {
         </div>
     </div>
 </div>
-);
+</>
+       
+    );
+
 }
 
 export default SignUp;

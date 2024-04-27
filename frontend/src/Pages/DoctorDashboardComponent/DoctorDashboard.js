@@ -3,6 +3,7 @@ import "./DoctorDashboard.css";
 import axios from "axios"; // Import Axios for making HTTP requests
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Header from "./Header";
 
 function DoctorDashboard() {
     const [users, setUsers] = useState([]);
@@ -36,8 +37,10 @@ function DoctorDashboard() {
     };
 
     return (
+        <>
+        <Header />
         <div className="consultclass">
-            <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}> Back</Button> {/* Use ArrowBackIcon */}
+            <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}style={{ backgroundColor: '#393E46', color: 'white',margin: '10px 0' }}> Back</Button> {/* Use ArrowBackIcon */}
             <h1>Consult Doctor 👨‍⚕️</h1>
             <div>
                 <TableContainer component={Paper}>
@@ -67,6 +70,7 @@ function DoctorDashboard() {
                 </TableContainer>
             </div>
         </div>
+        </>
     );
 }
 

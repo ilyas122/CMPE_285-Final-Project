@@ -8,6 +8,7 @@ import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
 import Avatar from '@mui/material/Avatar';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
+import Header from "./Header";
 
 const options = [
   { value: '1', label: 'Cough' },
@@ -300,6 +301,7 @@ const handlePage = () => {
 
   return (
     <div>
+      <Header/>
       {/* <form onSubmit={handleSubmit}>
         <label>
           Enter Symptoms (separated by commas):
@@ -326,7 +328,7 @@ const handlePage = () => {
         </div>
       )} */}
       
-      <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'linear-gradient(to right, #00f260, #0575e6)' }}>
+      <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#393E46' }}>
             <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
             <Select
                 options={options}

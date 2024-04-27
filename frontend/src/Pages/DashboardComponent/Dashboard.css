@@ -1,17 +1,17 @@
 .chatbot-container {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-    width: 20vw;
-    height: 5vh; 
-    background-color: black;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: height 0.3s ease; 
-    font-size:medium;
-  }
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 20vw;
+  height: 5vh;
+  background-color: #00ADB5; /* Change the background color */
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: height 0.3s ease;
+  font-size: medium;
+}
   
   .chatbot-container.expanded {
     height: 50vh;
@@ -20,7 +20,6 @@
   
   .healthgptTitle {
     justify-content: center;
-    align-items: center;
     display: flex;
     text-align: center;
     color: black;
@@ -28,9 +27,10 @@
   }
 
   .healthgptTitle p {
-    font-size: 30px; /* Increased font size for the p element */
+    font-size: 1.0rem; /* Adjust font size as needed */
     font-weight: bold;
   }
+  
   
   .chat-container-inner { 
     flex-direction: column;
@@ -41,15 +41,16 @@
   
   .chat-interface {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     overflow-y: auto;
-    max-height: 300px; 
+    max-height: calc(100% - 40px); /* Adjust height for chat interface */
     padding: 10px;
     box-sizing: border-box;
   }
   
-  .chat-interface p { 
-    margin-bottom: 10px;
+  
+  .chatbot-container.expanded {
+    height: calc(50vh - 40px); /* Adjust height for expanded chatbot container */
   }
   
   .user-message {

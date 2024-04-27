@@ -3,44 +3,47 @@
 /* Container */
 .container {
     margin: 0 !important;
+  
+
 }
 
-/* Left Container */
 .leftLoginOutlier {
-    height: 100vh;
-    background-color: black;
+    height: auto;
+    background-color: #393E46;
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 50px; /* Add padding to the bottom */
 }
 
-/* Right Container */
-.RightLoginOutlier {
-    height: 100vh;
-    background-color: white;
-    color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 /* Login Container */
 .loginContainer {
+    height:auto;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
 }
+.RightLoginOutlier {
+    height: auto; /* Set height to auto to adjust based on content */
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px; /* Add padding to the bottom */
+}
 
-/* Login Box */
 .loginBox {
     border-color: black;
     border-radius: 25px;
-    background-color: black;
+    background-color: #393E46;
     color: white;
-    min-width: 30vw;
+    width: 80%;
+    max-width: 400px;
     min-height: 50vh;
     display: flex;
     flex-direction: column;
@@ -48,6 +51,7 @@
     align-items: center;
     padding: 20px;
     text-align: center;
+    margin-top: 20px; /* Add margin to the top */
 }
 
 /* Form Inputs */
