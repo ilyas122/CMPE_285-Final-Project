@@ -46,6 +46,7 @@ const options = [
 function Dashboard() {
   const [selected, setSelected] = useState([]);
   const [symptoms, setSymptoms] = useState("");
+  const [disease,setDisease]=useState("");
   const [prediction, setPrediction] = useState("");
   const [confidence, setConfidence] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
@@ -254,6 +255,20 @@ const isValidApiKey = (apiKey) => {
     }
 };
 
+const handleDisease = async (e) => {
+  e.preventDefault();
+  try {
+      const userEmail = localStorage.getItem("email");
+      const disease = { disease: prediction };
+      //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
+      const response = await axios.post(`http://localhost:5000/user/add_disease/${userEmail}`,disease);
+      //const data = response.data;
+      console.log('Response:', response.data);
+  } catch (error) {
+      console.error('Error:', error);
+  }
+};
+
   const chatbotrequest = async () => {
     try {
       console.log("KEY:::", apiKey);
@@ -361,6 +376,7 @@ const handlePage = () => {
                 }}
             />
             <Button variant='contained' size='large' onClick={handlePredict} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Predict</Button>
+            <Button variant='contained' size='large' onClick={handleDisease} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Add Disease</Button>
             {prediction && confidence && (
                 <Box sx={{ width: '800px', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)' }}>
                     <Typography variant="h5" gutterBottom style={{ marginBottom: '10px' }}>Confidence Score:</Typography>

@@ -9,7 +9,8 @@ function UserProfile() {
     email: "",
     location: "",
     password: "",
-    doctor_id:"",
+    doctor_id: "",
+    diseases: [],
     // Add other fields as needed
   });
 
@@ -20,7 +21,6 @@ function UserProfile() {
         const userEmail = localStorage.getItem("email");
         const response = await axios.get(`http://127.0.0.1:5000/users/${userEmail}`);
         setUser(response.data);
-        console.log("USER:",response.data)
         setFormData(response.data); // Set initial form data
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -70,7 +70,7 @@ function UserProfile() {
               />
               <input
                 type="text"
-                name="doctorid"
+                name="doctor_id"
                 value={formData.doctor_id}
                 onChange={handleChange}
                 placeholder="Doctor Id"
@@ -90,6 +90,13 @@ function UserProfile() {
                 onChange={handleChange}
                 placeholder="password"
               />
+              {/* Display diseases */}
+              <h2>Diseases:</h2>
+              <ul>
+                {formData.diseases.map((disease, index) => (
+                  <li key={index}>{disease}</li>
+                ))}
+              </ul>
               {/* Add other fields for editing */}
               <button type="submit">Save</button>
             </form>
@@ -100,7 +107,13 @@ function UserProfile() {
               <p>Doctor Id: {user.doctor_id}</p>
               <p>Location: {user.location}</p>
               <p>password: {user.password}</p>
-              {/* Display other details */}
+              {/* Display diseases */}
+              <h2>Diseases:</h2>
+              <ul>
+                {user.diseases.map((disease, index) => (
+                  <li key={index}>{disease}</li>
+                ))}
+              </ul>
               <button onClick={() => setEditing(true)}>Edit</button>
             </div>
           )}
