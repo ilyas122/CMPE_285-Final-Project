@@ -20,7 +20,7 @@ CORS(app, resources={r"/*": {"origins": "*"}},
 # Configure CORS for specific endpoints
 #CORS(app, resources={r"/send-mail": {"origins": "*"}}, allow_credentials=True, allow_methods=["POST"], allow_headers=["Content-Type"])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/sample'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/smartdoctor'
 db = SQLAlchemy(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 # Configure Flask-Mail
@@ -88,6 +88,8 @@ class User(db.Model):
     location=db.Column(db.String(100), nullable=True, default="CA")
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), nullable=True)
+    # Define the many-to-many relationship with diseases
+    diseases = db.relationship("Disease", secondary='user_disease', backref="users")
 
     def __repr__(self):
         return f"User: {self.fullname}"
@@ -99,6 +101,12 @@ class User(db.Model):
         self.location=location
         self.doctor_id = doctor_id
 
+# Define the association table for the many-to-many relationship
+user_disease = db.Table('user_disease',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+    db.Column('disease_id', db.Integer, db.ForeignKey('disease.id'), primary_key=True)
+)
+
 def format_user(user):
     return {
         "id": user.id,
@@ -107,8 +115,32 @@ def format_user(user):
         "password":user.password,
         "created_at": user.created_at.isoformat(),
         "location":user.location,
-        "doctor_id":user.doctor_id
+        "doctor_id":user.doctor_id,
+        "diseases": [disease.name for disease in user.diseases]
     }
+
+# API endpoint to add diseases to a user based on email
+@app.route('/user/add_disease/<string:user_email>', methods=['POST'])
+def add_disease_to_user(user_email):
+    data = request.json
+    disease_name = data.get('disease')
+    print(data)
+    user = User.query.filter_by(email=user_email).first()
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    disease = Disease.query.filter_by(name=disease_name).first()
+    if not disease:
+        return jsonify({'message': 'Disease not found'}), 404
+
+    if disease in user.diseases:
+        return jsonify({'message': 'Disease already present for the user'})
+
+    user.diseases.append(disease)
+    db.session.commit()
+
+    return jsonify({'message': 'Disease added to user successfully'})
+
 
 # API endpoint for sending a "Hello" email
 @app.route('/send-mail', methods=['POST'])
@@ -251,6 +283,20 @@ def get_all_users():
 
         # Return JSON response with users data
         return jsonify(users_data), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/diseases', methods=['GET'])
+def get_all_diseases():
+    try:
+        # Query all diseases from the database
+        diseases = Disease.query.all()
+
+        # Convert users to a list of dictionaries
+        diseases_data = [format_disease(disease) for disease in diseases]
+
+        # Return JSON response with users data
+        return jsonify(diseases_data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

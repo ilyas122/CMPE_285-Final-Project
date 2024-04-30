@@ -61,6 +61,7 @@ function DoctorCards() {
               <Typography variant="body1">{doctor.speciality}</Typography>
               {expandedDoctor === doctor.id && (
                 <div className="expanded-details">
+                  <Typography variant="body2">Doctor Id: {doctor.id}</Typography>
                   <Typography variant="body2">Contact: {doctor.contact}</Typography>
                   <Typography variant="body2">Location: {doctor.location}</Typography>
                   {/* Add more details here */}
