@@ -11,11 +11,11 @@ function DoctorDashboard() {
     console.log("SS:",demail);
     useEffect(() => {
         // Fetch doctor data from the API
-        axios.get(`http://127.0.0.1:5000/doctors/${demail}`)
+        axios.get(`http://localhost:5000/doctors/${demail}`)
             .then(response => {
                 // Set the fetched doctor data to the state
                 setSelectedDoctorId(response.data.id);
-                axios.get(`http://127.0.0.1:5000/users/${response.data.id}`)
+                axios.get(`http://localhost:5000/users/${response.data.id}`)
                 .then(userResponse => {
                     // Handle the response, set the users state, etc.
                     const usersData = userResponse.data; // Assuming it's an array

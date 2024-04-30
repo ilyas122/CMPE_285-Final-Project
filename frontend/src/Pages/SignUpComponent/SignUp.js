@@ -23,10 +23,10 @@ function SignUp() {
         e.preventDefault();
         try {
             if (isDoctor) {
-                const response = await axios.post('http://127.0.0.1:5000/doctorsignup', { name, email, password, speciality, location, contact });
+                const response = await axios.post('http://localhost:5000/doctorsignup', { name, email, password, speciality, location, contact });
                 navigate('/');
             } else {
-                const response = await axios.post('http://127.0.0.1:5000/signup', { fullname, email, password, location });
+                const response = await axios.post('http://localhost:5000/signup', { fullname, email, password, location });
                 navigate('/');
             }
         } catch (error) {

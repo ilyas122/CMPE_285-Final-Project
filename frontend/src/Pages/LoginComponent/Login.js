@@ -18,10 +18,10 @@ function Login() {
         e.preventDefault();
         try {
             if (isDoctor) {
-                const response = await axios.post('http://127.0.0.1:5000/doctorlogin', { email, password });
+                const response = await axios.post('http://localhost:5000/doctorlogin', { email, password });
                 navigate('/doctordashboard');
             } else {
-                const response = await axios.post('http://127.0.0.1:5000/login', { email, password });
+                const response = await axios.post('http://localhost:5000/login', { email, password });
                 navigate('/dashboard');
             }
             localStorage.setItem('isLoggedIn', 'true');

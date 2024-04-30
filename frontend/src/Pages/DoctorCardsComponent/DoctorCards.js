@@ -9,7 +9,7 @@ function DoctorCards() {
   const [expandedDoctor, setExpandedDoctor] = useState(null);
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:5000/doctors")
+    axios.get("http://localhost:5000/doctors")
       .then(response => {
         setDoctors(response.data);
       })
@@ -23,8 +23,8 @@ function DoctorCards() {
       console.log("1doc:", doctor);
       console.log("reached");
       const userEmail = localStorage.getItem('email');
-      await axios.put(`http://127.0.0.1:5000/users/${userEmail}`, { doctor_id: doctor.id });
-      await axios.post('http://127.0.0.1:5000/send-mail', { user_email: userEmail, doctor: doctor });
+      await axios.put(`http://localhost:5000/users/${userEmail}`, { doctor_id: doctor.id });
+      await axios.post('http://localhost:5000/send-mail', { user_email: userEmail, doctor: doctor });
       // Redirect or perform any other action after the update
     } catch (error) {
       console.error('Error updating user record:', error);

@@ -19,7 +19,7 @@ function UserProfile() {
     const fetchUserDetails = async () => {
       try {
         const userEmail = localStorage.getItem("email");
-        const response = await axios.get(`http://127.0.0.1:5000/users/${userEmail}`);
+        const response = await axios.get(`http://localhost:5000/users/${userEmail}`);
         setUser(response.data);
         setFormData(response.data); // Set initial form data
       } catch (error) {
@@ -39,7 +39,7 @@ function UserProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/users/${user.email}`, formData);
+      const response = await axios.put(`http://localhost:5000/users/${user.email}`, formData);
       setUser(response.data); // Update user details in state
       setEditing(false);
     } catch (error) {

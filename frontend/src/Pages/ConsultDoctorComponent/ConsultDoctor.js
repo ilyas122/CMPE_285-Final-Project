@@ -11,7 +11,7 @@ function ConsultDoctor() {
     console.log("SS:",uemail);
     useEffect(() => {
         // Fetch doctor data from the API
-        axios.get('http://127.0.0.1:5000/doctors')
+        axios.get('http://localhost:5000/doctors')
             .then(response => {
                 // Set the fetched doctor data to the state
                 setDoctors(response.data);
@@ -33,9 +33,9 @@ function ConsultDoctor() {
             const userEmail = localStorage.getItem('email');
             
             // Update user record in the database with the selected doctor's ID
-            await axios.put(`http://127.0.0.1:5000/users/${userEmail}`, { doctor_id: selectedDoctorId });
+            await axios.put(`http://localhost:5000/users/${userEmail}`, { doctor_id: selectedDoctorId });
             
-            await axios.post('http://127.0.0.1:5000/send-mail', { user_email: userEmail, doctor: doctor });
+            await axios.post('http://localhost:5000/send-mail', { user_email: userEmail, doctor: doctor });
             
             // Redirect or perform any other action after the update
         } catch (error) {

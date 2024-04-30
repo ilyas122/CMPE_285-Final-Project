@@ -17,7 +17,7 @@ function DoctorProfile() {
     const fetchDoctorDetails = async () => {
       try {
         const doctorEmail = localStorage.getItem("email");
-        const response = await axios.get(`http://127.0.0.1:5000/doctors/${doctorEmail}`);
+        const response = await axios.get(`http://localhost:5000/doctors/${doctorEmail}`);
         setDoctor(response.data);
         setFormData(response.data); // Set initial form data
       } catch (error) {
@@ -37,7 +37,7 @@ function DoctorProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/doctors/${doctor.email}`, formData);
+      const response = await axios.put(`http://localhost:5000/doctors/${doctor.email}`, formData);
       setDoctor(response.data); // Update doctor details in state
       setEditing(false);
     } catch (error) {
