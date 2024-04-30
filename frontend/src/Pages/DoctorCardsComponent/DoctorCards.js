@@ -3,13 +3,15 @@ import "./DoctorCards.css";
 import axios from "axios";
 import { Card, CardContent, Typography, Button, TextField } from "@mui/material";
 
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorCards() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedDoctor, setExpandedDoctor] = useState(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/doctors")
+    console.log("URL:",process.env.REACT_APP_DOMAIN_URL);
+    axios.get(`${DOMAIN}/doctors`)
       .then(response => {
         setDoctors(response.data);
       })
@@ -23,8 +25,8 @@ function DoctorCards() {
       console.log("1doc:", doctor);
       console.log("reached");
       const userEmail = localStorage.getItem('email');
-      await axios.put(`http://localhost:5000/users/${userEmail}`, { doctor_id: doctor.id });
-      await axios.post('http://localhost:5000/send-mail', { user_email: userEmail, doctor: doctor });
+      await axios.put(`${DOMAIN}/users/${userEmail}`, { doctor_id: doctor.id });
+      await axios.post(`${DOMAIN}/send-mail`, { user_email: userEmail, doctor: doctor });
       // Redirect or perform any other action after the update
     } catch (error) {
       console.error('Error updating user record:', error);

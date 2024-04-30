@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./SignUp.css";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function SignUp() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -23,10 +23,10 @@ function SignUp() {
         e.preventDefault();
         try {
             if (isDoctor) {
-                const response = await axios.post('http://localhost:5000/doctorsignup', { name, email, password, speciality, location, contact });
+                const response = await axios.post(`${DOMAIN}/doctorsignup`, { name, email, password, speciality, location, contact });
                 navigate('/');
             } else {
-                const response = await axios.post('http://localhost:5000/signup', { fullname, email, password, location });
+                const response = await axios.post(`${DOMAIN}/signup`, { fullname, email, password, location });
                 navigate('/');
             }
         } catch (error) {

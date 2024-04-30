@@ -8,7 +8,7 @@ import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
 import Avatar from '@mui/material/Avatar';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 const options = [
   { value: '1', label: 'Cough' },
   { value: '2', label: 'Cold' },
@@ -226,7 +226,7 @@ const isValidApiKey = (apiKey) => {
   //     const symptomsArray = symptoms
   //       .split(",")
   //       .map((symptom) => parseInt(symptom.trim()));
-  //     const response = await axios.post("http://localhost:5000/predict", {
+  //     const response = await axios.post(`${DOMAIN}/predict`, {
   //       symptoms: symptomsArray,
   //     });
   //     const data = response.data;
@@ -245,7 +245,7 @@ const isValidApiKey = (apiKey) => {
     const symptomsArray = selected.map(symptom => parseInt(symptom.value));
     try {
         //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
-        const response = await axios.post('http://localhost:5000/predict', { symptoms: symptomsArray });
+        const response = await axios.post(`${DOMAIN}/predict`, { symptoms: symptomsArray });
         const data = response.data;
         console.log('Response:', data);
         setPrediction(data.prediction);
@@ -261,7 +261,7 @@ const handleDisease = async (e) => {
       const userEmail = localStorage.getItem("email");
       const disease = { disease: prediction };
       //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
-      const response = await axios.post(`http://localhost:5000/user/add_disease/${userEmail}`,disease);
+      const response = await axios.post(`${DOMAIN}/user/add_disease/${userEmail}`,disease);
       //const data = response.data;
       console.log('Response:', response.data);
   } catch (error) {
@@ -273,7 +273,7 @@ const handleDisease = async (e) => {
     try {
       console.log("KEY:::", apiKey);
       console.log("INPUTTT:::", userInput);
-      const res = await axios.post("http://localhost:5000/ask", {
+      const res = await axios.post(`${DOMAIN}/ask`, {
         openai_api_key: apiKey,
         user_input: userInput,
       });
@@ -294,7 +294,7 @@ const handleDisease = async (e) => {
 
   const getChatHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/get_chat_history");
+      const res = await axios.get(`${DOMAIN}/get_chat_history`);
       setChatHistory(res.data);
     } catch (error) {
       console.error("Error fetching chat history:", error);
