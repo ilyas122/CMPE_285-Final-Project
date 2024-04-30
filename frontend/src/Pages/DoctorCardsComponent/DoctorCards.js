@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./DoctorCards.css";
 import axios from "axios";
-import { Card, CardContent, Typography, Button, TextField } from "@mui/material";
+import { Card, CardContent, Typography, Button, TextField, Snackbar, Alert } from "@mui/material";
 
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorCards() {
   const [doctors, setDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedDoctor, setExpandedDoctor] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [isSuccess,setIsSuccess]=useState(true);
 
   useEffect(() => {
-    console.log("URL:",process.env.REACT_APP_DOMAIN_URL);
     axios.get(`${DOMAIN}/doctors`)
       .then(response => {
         setDoctors(response.data);
@@ -22,15 +23,26 @@ function DoctorCards() {
 
   const handleActionClick = async (doctor) => {
     try {
-      console.log("1doc:", doctor);
-      console.log("reached");
       const userEmail = localStorage.getItem('email');
       await axios.put(`${DOMAIN}/users/${userEmail}`, { doctor_id: doctor.id });
       await axios.post(`${DOMAIN}/send-mail`, { user_email: userEmail, doctor: doctor });
-      // Redirect or perform any other action after the update
+      setSnackbarOpen(true);
     } catch (error) {
       console.error('Error updating user record:', error);
+      setIsSuccess(false);
+      setSnackbarOpen(true);
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
   };
 
   const handleCardClick = (doctor) => {
@@ -66,16 +78,25 @@ function DoctorCards() {
                   <Typography variant="body2">Doctor Id: {doctor.id}</Typography>
                   <Typography variant="body2">Contact: {doctor.contact}</Typography>
                   <Typography variant="body2">Location: {doctor.location}</Typography>
-                  {/* Add more details here */}
                 </div>
               )}
             </CardContent>
             <div className="card-action">
-              <Button onClick={() => handleActionClick(doctor)}>Action</Button>
+              <Button onClick={() => handleActionClick(doctor)}>Consult</Button>
             </div>
           </Card>
         ))}
       </div>
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
+        <Alert
+          onClose={handleClose}
+          severity={isSuccess?"success":"error"}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {isSuccess? "Doctor consultation succesful!!":"Doctor consultation Failed!!"}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
