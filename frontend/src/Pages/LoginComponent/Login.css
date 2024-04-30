@@ -1,38 +1,67 @@
-/* h1{
-    background-color: red;
-    color: blue;
-} */
-.container{
-    margin:0px !important;
-}
-.leftLoginOutlier{
-    height: 100vh;
-    background-color:black;
-    color: white;
-}
-.RightLoginOutlier{
-    height: 100vh;
-    background-color:white;
-    color: black;
+/* Apply styles globally */
+
+/* Override container margin */
+.container {
+    margin: 0 !important;
 }
 
-.loginContainer{
+/* Left side login outlier */
+leftLoginOutlier {
+    height: 100vh;
+    background-color: #393E46;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content {
+    text-align: center; /* Center the text */
+    padding: 20px; /* Add padding for spacing */
+}
+
+h2 {
+    font-size: 2rem; /* Adjust the font size */
+    font-weight: bold; /* Make the text bold */
+}
+
+
+/* Center content within leftLoginOutlier */
+.content {
+    text-align: center;
+}
+
+/* Right side login outlier */
+.RightLoginOutlier {
+    height: 100vh;
+    background-color: white;
+    color: 393E46;
+}
+
+/* Login container */
+.loginContainer {
     justify-content: center;
     align-items: center;
     display: flex;
-    min-height: 90vh; /* Ensure login box is visible even on full screen */
-    /* background-color: #f0f0f0; */   
+    min-height: 90vh;
 }
-.loginBox{
-    border-color: black;
+
+/* Login box */
+.loginBox {
+    display: flex;
+    flex-direction: column;
     border-radius: 25px;
-    background-color:black;
+    background-color: black;
     color: white;
     min-width: 30vw;
     min-height: 50vh;
     justify-content: center;
     align-items: center;
-    display: flex;
     text-align: center;
+}
 
+/* Signup button */
+.signupButton {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

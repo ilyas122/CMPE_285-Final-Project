@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Login.css";
 import axios from "axios";
+import Header from "./Header";
+
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
@@ -32,39 +34,48 @@ function Login() {
             setError('Invalid email or password. Please try again.');
         }
     };
-
+   
     return (
-        <div>
-            <div className="container LoginOutlier">
-                <div className="row">
-                    <div className="col leftLoginOutlier"></div>
-                    <div className="col RightLoginOutlier">
-                        <div className="container loginContainer">
-                            <div className="loginBox">
-                                <form onSubmit={handleLogin}>
-                                    <h1>Login</h1>
-                                    <div>
-                                        <label htmlFor="email" className="mb-2">Email: </label>
-                                        <input type="email" id="email" className="border border-gray-300 p-2 rounded mb-4" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        <>
+        <Header />
+        <div className="container">
+            <div className="row">
+                <div className="col-6 leftLoginOutlier">
+                    <div className="content">
+                        <img src="./image.png" alt="Doctor" />
+                        <h2>Be your own Doctor</h2>
+                    </div>
+                </div>
+                <div className="col-6">
+                    <div className="container loginContainer">
+                        <div className="loginBox">
+                            <form onSubmit={handleLogin}>
+                                <h1>Login</h1>
+                                <div className="form-group">
+                                    <label htmlFor="email" className="mb-2">Email:</label>
+                                    <input type="email" id="email" className="form-control mb-4" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="password" className="mb-2">Password:</label>
+                                    <input type="password" id="password" className="form-control mb-4" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                                </div>
+                                {error && <div className="text-red-500">{error}</div>}
+                                <div className="form-group mb-3">
+                                    <div className="form-check">
+                                        <input type="checkbox" id="isDoctor" checked={isDoctor} onChange={() => setIsDoctor(!isDoctor)} className="form-check-input" />
+                                        <label htmlFor="isDoctor" className="form-check-label ml-2">Login as Doctor</label>
                                     </div>
-                                    <div>
-                                        <label htmlFor="password" className="mb-2">Password: </label>
-                                        <input type="password" id="password" className="border border-gray-300 p-2 rounded mb-4" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                                    </div>
-                                    {error && <div className="text-red-500">{error}</div>}
-                                    <div>
-                                        <input type="checkbox" id="isDoctor" checked={isDoctor} onChange={() => setIsDoctor(!isDoctor)} />
-                                        <label htmlFor="isDoctor" className="ml-2">Login as Doctor</label>
-                                    </div>
-                                    <button type="submit" className="btn btn-primary">Login</button>
-                                </form>
-                                <button className="btn btn-primary" onClick={()=>navigate('/signup')}>Sign Up</button>
-                            </div>
+                                </div>
+                                <button type="submit" className="btn btn-primary mr-2">Login</button>
+                                <button className="btn btn-primary" onClick={()=>navigate('/signup')} style={{ marginLeft: '10px' }}>Sign Up</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        </>
+       
     );
 }
 

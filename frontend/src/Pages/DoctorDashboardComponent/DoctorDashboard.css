@@ -1,11 +1,15 @@
 .consultclass {
-    text-align: center;
-    margin-top: 50px; /* Adjust this value to your preference */
-  }
-  
-  .consultclass h1 {
-    font-size: 24px; /* Adjust this value to your preference */
-    color: #333; /* Adjust the color as needed */
-    margin-bottom: 10px; /* Adjust this value to your preference */
-  }
-  
+  text-align: center;
+  margin-top: 10px; /* Adjust this value to your preference */
+  background-color: #08D9D6; /* Add the background color here */
+}
+
+.consultclass h1 {
+  font-size: 24px; /* Adjust this value to your preference */
+  color: #333; /* Adjust the color as needed */
+  margin-bottom: 10px; /* Adjust this value to your preference */
+}
+
+body {
+  background-color: #393E46; /* Set the background color of the entire page */
+}

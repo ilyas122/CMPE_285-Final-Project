@@ -1,38 +1,88 @@
-/* h1{
-    background-color: red;
-    color: blue;
-} */
-.container{
-    margin:0px !important;
-}
-.leftLoginOutlier{
-    height: 100vh;
-    background-color:black;
-    color: white;
-}
-.RightLoginOutlier{
-    height: 100vh;
-    background-color:white;
-    color: black;
+/* SignUp.css */
+
+/* Container */
+.container {
+    margin: 0 !important;
+  
+
 }
 
-.loginContainer{
+.leftLoginOutlier {
+    height: auto;
+    background-color: #393E46;
+    color: white;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: flex;
-    min-height: 90vh; /* Ensure login box is visible even on full screen */
-    /* background-color: #f0f0f0; */   
+    padding-bottom: 50px; /* Add padding to the bottom */
 }
-.loginBox{
+
+
+/* Login Container */
+.loginContainer {
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+.RightLoginOutlier {
+    height: auto; /* Set height to auto to adjust based on content */
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 50px; /* Add padding to the bottom */
+}
+
+.loginBox {
     border-color: black;
     border-radius: 25px;
-    background-color:black;
+    background-color: #393E46;
     color: white;
-    min-width: 30vw;
+    width: 80%;
+    max-width: 400px;
     min-height: 50vh;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    display: flex;
+    padding: 20px;
     text-align: center;
+    margin-top: 20px; /* Add margin to the top */
+}
 
+/* Form Inputs */
+.border {
+    border: 1px solid #ced4da;
+}
+
+.p-2 {
+    padding: 0.5rem !important;
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+/* Checkbox */
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+/* Submit Button */
+.mt-3 {
+    margin-top: 1rem !important;
+}
+
+/* Already have an account link */
+a {
+    color: blue;
+    text-decoration: underline;
 }
