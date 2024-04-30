@@ -3,7 +3,7 @@ import "./ConsultDoctor.css";
 import axios from "axios"; // Import Axios for making HTTP requests
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function ConsultDoctor() {
     const [doctors, setDoctors] = useState([]);
     const [selectedDoctorId, setSelectedDoctorId] = useState(null); // State to store the selected doctor's ID
@@ -11,7 +11,7 @@ function ConsultDoctor() {
     console.log("SS:",uemail);
     useEffect(() => {
         // Fetch doctor data from the API
-        axios.get('http://127.0.0.1:5000/doctors')
+        axios.get(`${DOMAIN}/doctors`)
             .then(response => {
                 // Set the fetched doctor data to the state
                 setDoctors(response.data);
@@ -33,9 +33,9 @@ function ConsultDoctor() {
             const userEmail = localStorage.getItem('email');
             
             // Update user record in the database with the selected doctor's ID
-            await axios.put(`http://127.0.0.1:5000/users/${userEmail}`, { doctor_id: selectedDoctorId });
+            await axios.put(`${DOMAIN}/users/${userEmail}`, { doctor_id: selectedDoctorId });
             
-            await axios.post('http://127.0.0.1:5000/send-mail', { user_email: userEmail, doctor: doctor });
+            await axios.post(`${DOMAIN}/send-mail`, { user_email: userEmail, doctor: doctor });
             
             // Redirect or perform any other action after the update
         } catch (error) {

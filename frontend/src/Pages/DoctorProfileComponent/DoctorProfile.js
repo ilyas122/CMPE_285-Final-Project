@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorProfile() {
   const [doctor, setDoctor] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -17,7 +17,7 @@ function DoctorProfile() {
     const fetchDoctorDetails = async () => {
       try {
         const doctorEmail = localStorage.getItem("email");
-        const response = await axios.get(`http://127.0.0.1:5000/doctors/${doctorEmail}`);
+        const response = await axios.get(`${DOMAIN}/doctors/${doctorEmail}`);
         setDoctor(response.data);
         setFormData(response.data); // Set initial form data
       } catch (error) {
@@ -37,7 +37,7 @@ function DoctorProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/doctors/${doctor.email}`, formData);
+      const response = await axios.put(`${DOMAIN}/doctors/${doctor.email}`, formData);
       setDoctor(response.data); // Update doctor details in state
       setEditing(false);
     } catch (error) {

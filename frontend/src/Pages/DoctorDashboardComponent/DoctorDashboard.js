@@ -3,7 +3,7 @@ import "./DoctorDashboard.css";
 import axios from "axios"; // Import Axios for making HTTP requests
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorDashboard() {
     const [users, setUsers] = useState([]);
     const [selectedDoctorId, setSelectedDoctorId] = useState(null); // State to store the selected doctor's ID
@@ -11,11 +11,11 @@ function DoctorDashboard() {
     console.log("SS:",demail);
     useEffect(() => {
         // Fetch doctor data from the API
-        axios.get(`http://127.0.0.1:5000/doctors/${demail}`)
+        axios.get(`${DOMAIN}/doctors/${demail}`)
             .then(response => {
                 // Set the fetched doctor data to the state
                 setSelectedDoctorId(response.data.id);
-                axios.get(`http://127.0.0.1:5000/users/${response.data.id}`)
+                axios.get(`${DOMAIN}/users/${response.data.id}`)
                 .then(userResponse => {
                     // Handle the response, set the users state, etc.
                     const usersData = userResponse.data; // Assuming it's an array

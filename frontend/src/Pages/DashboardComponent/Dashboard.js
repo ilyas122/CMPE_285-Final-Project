@@ -8,44 +8,13 @@ import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
 import Avatar from '@mui/material/Avatar';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
-
-const options = [
-  { value: '1', label: 'Cough' },
-  { value: '2', label: 'Cold' },
-  { value: '3', label: 'Fever' },
-  { value: '4', label: 'Itching' },
-  { value: '5', label: 'Nausea' },
-  { value: '6', label: 'Stomach Pain' },
-  { value: '7', label: 'Headache' },
-  { value: '8', label: 'Vomiting' },
-  { value: '9', label: 'Joint Pain' },
-  { value: '10', label: 'Malaria' },
-  { value: '11', label: 'Cough' },
-  { value: '12', label: 'Cold' },
-  { value: '13', label: 'Fever' },
-  { value: '14', label: 'Itching' },
-  { value: '15', label: 'Nausea' },
-  { value: '16', label: 'Stomach Pain' },
-  { value: '17', label: 'Headache' },
-  { value: '18', label: 'Vomiting' },
-  { value: '19', label: 'Joint Pain' },
-  { value: '20', label: 'Malaria' },
-  { value: '21', label: 'Cough' },
-  { value: '22', label: 'Cold' },
-  { value: '23', label: 'Fever' },
-  { value: '24', label: 'Itching' },
-  { value: '25', label: 'Nausea' },
-  { value: '26', label: 'Stomach Pain' },
-  { value: '27', label: 'Headache' },
-  { value: '28', label: 'Vomiting' },
-  { value: '29', label: 'Joint Pain' },
-  { value: '30', label: 'Malaria' },
-];
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 
 
 function Dashboard() {
   const [selected, setSelected] = useState([]);
   const [symptoms, setSymptoms] = useState("");
+  const [options,setOptions]=useState([]);
   const [disease,setDisease]=useState("");
   const [prediction, setPrediction] = useState("");
   const [confidence, setConfidence] = useState("");
@@ -59,6 +28,16 @@ function Dashboard() {
   const [response, setResponse] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const scrollToBottomRef = useRef(null); 
+
+  useEffect(() => {
+    axios.get(`${DOMAIN}/symptoms`)
+      .then(response => {
+        setOptions(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetchingsymptoms:', error);
+      });
+  }, []);
 
   useEffect(() => {
     if (isExpanded && contentRef.current) {
@@ -116,65 +95,6 @@ function Dashboard() {
     setIsDialogOpen(false);
   };
 
-  // const handleApiKeySubmit = () => {
-  //   // Validate or use the API key here
-  //   console.log("API Key:", apiKey);
-  //   if(validInput){
-  //     closeDialog();
-  //     toggleChatbot();
-  //   }
-  //   else{
-  //     alert("Please enter valid API Key");
-  //   }
-  
-  // };
-
-
-  // const handleApiKeySubmit = async () => {
-  //   // Validate API key format (basic check)
-  //   if (!validInput()) {
-  //     alert("Invalid API Key format. Please enter a valid 40-character alphanumeric key.");
-  //     return; // Exit the function if format is invalid
-  //   }
-  
-  //   try {
-  //     // Perform server-side validation (recommended for security)
-  //     const response = await axios.get('https://api.openai.com/v1/engines', {
-  //       headers: {
-  //         'Authorization': `Bearer ${apiKey}`
-  //       }
-  //     });
-  //     console.log("API Key Validation Response:", response);
-  
-  //     // Successful response likely indicates valid key
-  //     console.log("API Key:", apiKey);
-  //     closeDialog();
-  //     toggleChatbot();
-  //   } catch (error) {
-  //     if (error.response && error.response.status === 401) {
-  //       // Authentication error suggests invalid key
-  //       alert("Invalid API Key. Please check your key and try again.");
-  //       // Optionally, use a timeout for the alert to disappear after 3 seconds
-  //       setTimeout(() => {
-  //         window.alert.hidden = true; // Clear the alert after 3 seconds
-  //       }, 3000);
-  //     } else {
-  //       // Handle other errors (e.g., network issues)
-  //       console.error("Error:", error);
-  //       alert("An error occurred while validating your API Key. Please try again later.");
-  //     }
-  //   }
-  // };
-
-  // const validInput = () => {
-  //   if (typeof apiKey !== "string" || apiKey.length !== 40) {
-  //     return false;
-  //   }
-  //   return apiKey.match(/^[a-zA-Z0-9]+$/) !== null;
-  // };
-
-
-
   const handleApiKeySubmit = async () => {
         if (!isValidApiKey(apiKey)) {
             alert("Invalid API Key format. Please enter a valid API Key that starts with 'sk-' followed by 32 alphanumeric characters.");
@@ -219,33 +139,14 @@ const isValidApiKey = (apiKey) => {
   return true;
 };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("Type of symptoms:", typeof symptoms);
-  //   try {
-  //     const symptomsArray = symptoms
-  //       .split(",")
-  //       .map((symptom) => parseInt(symptom.trim()));
-  //     const response = await axios.post("http://localhost:5000/predict", {
-  //       symptoms: symptomsArray,
-  //     });
-  //     const data = response.data;
-  //     console.log("Response:", data);
-
-  //     setPrediction(data.prediction);
-  //     setConfidence(data.confidence);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // };
 
   const handlePredict = async (e) => {
     e.preventDefault();
     console.log('Type of symptoms:', typeof symptoms);
-    const symptomsArray = selected.map(symptom => parseInt(symptom.value));
+    const symptomsArray = selected.map(symptom => parseInt(symptom.id));
     try {
         //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
-        const response = await axios.post('http://localhost:5000/predict', { symptoms: symptomsArray });
+        const response = await axios.post(`${DOMAIN}/predict`, { symptoms: symptomsArray });
         const data = response.data;
         console.log('Response:', data);
         setPrediction(data.prediction);
@@ -261,7 +162,7 @@ const handleDisease = async (e) => {
       const userEmail = localStorage.getItem("email");
       const disease = { disease: prediction };
       //const symptomsArray = symptoms.split(',').map(symptom => parseInt(symptom.trim()));
-      const response = await axios.post(`http://localhost:5000/user/add_disease/${userEmail}`,disease);
+      const response = await axios.post(`${DOMAIN}/user/add_disease/${userEmail}`,disease);
       //const data = response.data;
       console.log('Response:', response.data);
   } catch (error) {
@@ -273,7 +174,7 @@ const handleDisease = async (e) => {
     try {
       console.log("KEY:::", apiKey);
       console.log("INPUTTT:::", userInput);
-      const res = await axios.post("http://localhost:5000/ask", {
+      const res = await axios.post(`${DOMAIN}/ask`, {
         openai_api_key: apiKey,
         user_input: userInput,
       });
@@ -294,7 +195,7 @@ const handleDisease = async (e) => {
 
   const getChatHistory = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/get_chat_history");
+      const res = await axios.get(`${DOMAIN}/get_chat_history`);
       setChatHistory(res.data);
     } catch (error) {
       console.error("Error fetching chat history:", error);
@@ -315,32 +216,6 @@ const handlePage = () => {
 
   return (
     <div>
-      {/* <form onSubmit={handleSubmit}>
-        <label>
-          Enter Symptoms (separated by commas):
-          <input
-            type="text"
-            value={symptoms}
-            onChange={(e) => setSymptoms(e.target.value)}
-          />
-        </label>
-        <button type="submit">Predict button</button>
-      </form>
-      {prediction && confidence && (
-        <div>
-          <h2>Prediction: {prediction}</h2>
-          <p>Confidence: {confidence} %</p>
-
-          <button
-            type="button"
-            onClick={handleConsultDoctor}
-            className="btn btn-primary"
-          >
-            Consult Doctot 👨‍⚕️
-          </button>
-        </div>
-      )} */}
-      
       <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'linear-gradient(to right, #00f260, #0575e6)' }}>
             <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
             <Select
@@ -348,6 +223,8 @@ const handlePage = () => {
                 isMulti
                 value={selected}
                 onChange={handleSelectionChange}
+                getOptionLabel={(option) => option.name} // Display the disease name in the dropdown
+                getOptionValue={(option) => option.id}
                 name="symptoms"
                 className="basic-multi-select"
                 classNamePrefix="select"
@@ -407,33 +284,6 @@ const handlePage = () => {
                     }
                   >
                     {message.text}
-
-                    {/* <div className="message-content">
-                      {message.user === "User" ? <Avatar><PersonIcon /></Avatar> : <Avatar><ChatIcon /></Avatar>}
-                      <div className="message-text">{message.text}</div>
-                    </div> */}
-
-
-                      {/* {message.user === "User" ? (
-                          <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <Avatar className="avatar">
-                              <PersonIcon />
-                            </Avatar>
-                            <div>{message.text}</div>
-                          </div>
-                        ) : (
-                          <div style={{ display: 'flex', alignItems: 'center' }}>
-                            <div>{message.text}</div>
-                            <Avatar className="avatar">
-                              <ChatIcon />
-                            </Avatar>
-                          </div>
-                        )} */}
-
-
-
-
-
                   </div>
                 ))}
                 <div ref={scrollToBottomRef} /> {/* Added ref for scrolling */}
