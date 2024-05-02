@@ -99,8 +99,9 @@ function SignUp() {
                             <input type="checkbox" id="isDoctor" checked={isDoctor} onChange={() => setIsDoctor(!isDoctor)} />
                             <label htmlFor="isDoctor" className="ml-2">SignUp as Doctor</label>
                         </div>
-                        <button type="submit" className="btn btn-primary mt-3">SignUp</button>
-                        <p>Already have an account? <a href="/">Login</a></p>
+                        <button type="submit" className="btn btn-primary mt-3" style={{ backgroundColor: '#08D9D6', color: '#fff' }}>SignUp</button>
+<p>Already have an account? <a href="/" style={{ color: '#08D9D6' }}>Login</a></p>
+
                     </form>
                 </div>
             </div>

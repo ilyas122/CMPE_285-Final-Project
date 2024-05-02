@@ -6,12 +6,20 @@ body {
   
   /* Search bar styles */
   .search-bar {
-    width: 80%;
-    max-width: 600px;
+    width: 40%;
+    max-width: 500px;
     margin: 0 auto 20px auto;
     padding: 10px;
     font-size: 16px;
+    background-color: #393E46; /* Change the background color */
   }
+  
+  .search-bar input {
+    background-color: transparent; /* Make the input background transparent */
+    border: none; /* Remove the border */
+    color: #08D9D6; /* Change the text color */
+  }
+  
   
   /* Cards container styles */
   .cards-container {

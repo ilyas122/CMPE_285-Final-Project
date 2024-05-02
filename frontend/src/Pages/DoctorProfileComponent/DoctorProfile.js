@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from './Header';
 
 function DoctorProfile() {
   const [doctor, setDoctor] = useState(null);
@@ -46,57 +47,60 @@ function DoctorProfile() {
   };
 
   return (
-    <div>
-      {doctor ? (
-        <div>
-          {editing ? (
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Name"
-              />
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                disabled // Email cannot be edited
-              />
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Location"
-              />
-              <input
-                type="text"
-                name="speciality"
-                value={formData.speciality}
-                onChange={handleChange}
-                placeholder="Speciality"
-              />
-              {/* Add other fields for editing */}
-              <button type="submit">Save</button>
-            </form>
-          ) : (
-            <div>
-              <p>Name: {doctor.name}</p>
-              <p>Email: {doctor.email}</p>
-              <p>Location: {doctor.location}</p>
-              <p>Speciality: {doctor.speciality}</p>
-              {/* Display other details */}
-              <button onClick={() => setEditing(true)}>Edit</button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div style={{ backgroundColor: "#393E46", minHeight: "100vh", padding: "20px" }}>
+      <Header />
+      <div style={{ backgroundColor: "#08D9D6", padding: "20px", borderRadius: "10px", color: "#393E46" }}>
+        {doctor ? (
+          <div>
+            {editing ? (
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                />
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  disabled // Email cannot be edited
+                />
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Location"
+                />
+                <input
+                  type="text"
+                  name="speciality"
+                  value={formData.speciality}
+                  onChange={handleChange}
+                  placeholder="Speciality"
+                />
+                {/* Add other fields for editing */}
+                <button type="submit">Save</button>
+              </form>
+            ) : (
+              <div className="details-container" style={{ padding: '20px', marginBottom: '20px', marginTop: '20px' }}>
+                <p>Name: {doctor.name}</p>
+                <p>Email: {doctor.email}</p>
+                <p>Location: {doctor.location}</p>
+                <p>Speciality: {doctor.speciality}</p>
+                {/* Display other details */}
+                <button onClick={() => setEditing(true)}>Edit</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 }

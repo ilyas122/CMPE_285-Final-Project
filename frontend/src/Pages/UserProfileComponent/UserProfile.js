@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from './Header';
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -48,80 +49,86 @@ function UserProfile() {
   };
 
   return (
-    <div>
-      {user ? (
-        <div>
-          {editing ? (
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="fullname"
-                value={formData.fullname}
-                onChange={handleChange}
-                placeholder="FullName"
-              />
-              <input
-                type="text"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
-                disabled // Email cannot be edited
-              />
-              <input
-                type="text"
-                name="doctor_id"
-                value={formData.doctor_id}
-                onChange={handleChange}
-                placeholder="Doctor Id"
-                disabled // DoctorId cannot be edited
-              />
-              <input
-                type="text"
-                name="location"
-                value={formData.location}
-                onChange={handleChange}
-                placeholder="Location"
-              />
-              <input
-                type="text"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="password"
-              />
-              {/* Display diseases */}
-              <h2>Diseases:</h2>
-              <ul>
-                {formData.diseases.map((disease, index) => (
-                  <li key={index}>{disease}</li>
-                ))}
-              </ul>
-              {/* Add other fields for editing */}
-              <button type="submit">Save</button>
-            </form>
-          ) : (
-            <div>
-              <p>Name: {user.fullname}</p>
-              <p>Email: {user.email}</p>
-              <p>Doctor Id: {user.doctor_id}</p>
-              <p>Location: {user.location}</p>
-              <p>password: {user.password}</p>
-              {/* Display diseases */}
-              <h2>Diseases:</h2>
-              <ul>
-                {user.diseases.map((disease, index) => (
-                  <li key={index}>{disease}</li>
-                ))}
-              </ul>
-              <button onClick={() => setEditing(true)}>Edit</button>
-            </div>
-          )}
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <>
+    <Header/>
+    <div style={{ backgroundColor: "#393E46", minHeight: "100vh", padding: "20px" }}>
+      <Header />
+      <div style={{ backgroundColor: "#08D9D6", padding: "20px", borderRadius: "10px", color: "#393E46" }}>
+        {user ? (
+          <div>
+            {editing ? (
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  name="fullname"
+                  value={formData.fullname}
+                  onChange={handleChange}
+                  placeholder="Full Name"
+                />
+                <input
+                  type="text"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                  disabled // Email cannot be edited
+                />
+                <input
+                  type="text"
+                  name="doctor_id"
+                  value={formData.doctor_id}
+                  onChange={handleChange}
+                  placeholder="Doctor Id"
+                  disabled // DoctorId cannot be edited
+                />
+                <input
+                  type="text"
+                  name="location"
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="Location"
+                />
+                <input
+                  type="text"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                />
+                {/* Display diseases */}
+                <h2>Diseases:</h2>
+                <ul>
+                  {formData.diseases.map((disease, index) => (
+                    <li key={index}>{disease}</li>
+                  ))}
+                </ul>
+                {/* Add other fields for editing */}
+                <button type="submit">Save</button>
+              </form>
+            ) : (
+              <div>
+                <p>Name: {user.fullname}</p>
+                <p>Email: {user.email}</p>
+                <p>Doctor Id: {user.doctor_id}</p>
+                <p>Location: {user.location}</p>
+                <p>Password: {user.password}</p>
+                {/* Display diseases */}
+                <h2>Diseases:</h2>
+                <ul>
+                  {user.diseases.map((disease, index) => (
+                    <li key={index}>{disease}</li>
+                  ))}
+                </ul>
+                <button onClick={() => setEditing(true)}>Edit</button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
+    </>
   );
 }
 

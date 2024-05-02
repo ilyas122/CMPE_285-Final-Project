@@ -20,7 +20,7 @@ CORS(app, resources={r"/*": {"origins": "*"}},
 # Configure CORS for specific endpoints
 #CORS(app, resources={r"/send-mail": {"origins": "*"}}, allow_credentials=True, allow_methods=["POST"], allow_headers=["Content-Type"])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/smartdoctor'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost/smartdoctor'
 db = SQLAlchemy(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 # Configure Flask-Mail

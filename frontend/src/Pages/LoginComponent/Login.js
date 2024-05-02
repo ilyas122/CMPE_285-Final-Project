@@ -66,8 +66,9 @@ function Login() {
                                         <label htmlFor="isDoctor" className="form-check-label ml-2">Login as Doctor</label>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-primary mr-2">Login</button>
-                                <button className="btn btn-primary" onClick={()=>navigate('/signup')} style={{ marginLeft: '10px' }}>Sign Up</button>
+                                <button type="submit" className="btn btn-primary mr-2" style={{ backgroundColor: '#08D9D6', color: '#fff' }}>Login</button>
+<button className="btn btn-primary" onClick={() => navigate('/signup')} style={{ backgroundColor: '#08D9D6', color: '#fff', marginLeft: '10px' }}>Sign Up</button>
+
                             </form>
                         </div>
                     </div>

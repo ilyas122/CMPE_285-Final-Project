@@ -377,14 +377,64 @@ const handlePage = () => {
                     })
                 }}
             />
-            <Button variant='contained' size='large' onClick={handlePredict} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Predict</Button>
-            <Button variant='contained' size='large' onClick={handleDisease} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Add Disease</Button>
+          <Button
+  variant='contained'
+  size='large'
+  onClick={handlePredict}
+  style={{
+    fontSize: '1.5rem',
+    marginBottom: '30px',
+    backgroundColor: '#08D9D6', // Changed color
+    color: '#fff', // Text color
+    padding: '15px 30px',
+    borderRadius: '10px',
+    boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)',
+    zIndex: 1
+  }}
+>
+  Predict
+</Button>
+<Button
+  variant='contained'
+  size='large'
+  onClick={handleDisease}
+  style={{
+    fontSize: '1.5rem',
+    marginBottom: '30px',
+    backgroundColor: '#08D9D6', // Changed color
+    color: '#fff', // Text color
+    padding: '15px 30px',
+    borderRadius: '10px',
+    boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)',
+    zIndex: 1
+  }}
+>
+  Add Disease
+</Button>
+
             {prediction && confidence && (
                 <Box sx={{ width: '800px', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)' }}>
                     <Typography variant="h5" gutterBottom style={{ marginBottom: '10px' }}>Confidence Score:</Typography>
                     <LinearProgress variant="determinate" value={confidence} style={{ marginBottom: '10px', backgroundColor: '#e0e0e0', borderRadius: '5px' }} />
                     <Typography variant="subtitle1" gutterBottom>{`Predicted disease: ${prediction} (${confidence}%)`}</Typography>
-                    <Button variant='contained' size='large' onClick={handlePage} style={{ fontSize: '1.5rem', marginBottom: '30px', backgroundColor: '#4CAF50', color: '#fff', padding: '15px 30px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)', zIndex: 1 }}>Consult</Button>
+                    <Button
+  variant='contained'
+  size='large'
+  onClick={handlePage}
+  style={{
+    fontSize: '1.5rem',
+    marginBottom: '30px',
+    backgroundColor: '#08D9D6', // Changed color
+    color: '#fff', // Text color
+    padding: '15px 30px',
+    borderRadius: '10px',
+    boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)',
+    zIndex: 1
+  }}
+>
+  Consult
+</Button>
+
                 </Box>
             )}            
         </div>

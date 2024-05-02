@@ -3,6 +3,7 @@
 /* Container */
 .container {
     margin: 0 !important;
+    
   
 
 }
@@ -29,7 +30,7 @@
 }
 .RightLoginOutlier {
     height: auto; /* Set height to auto to adjust based on content */
-    background-color: white;
+    background-color:#393E46 ;
     color: black;
     display: flex;
     justify-content: center;
@@ -40,7 +41,7 @@
 .loginBox {
     border-color: black;
     border-radius: 25px;
-    background-color: #393E46;
+    background-color: black;
     color: white;
     width: 80%;
     max-width: 400px;

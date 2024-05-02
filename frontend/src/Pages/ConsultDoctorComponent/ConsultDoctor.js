@@ -3,6 +3,8 @@ import "./ConsultDoctor.css";
 import axios from "axios";
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import Header from "./Header";
+
 
 function ConsultDoctor() {
     const [doctors, setDoctors] = useState([]);
@@ -34,6 +36,8 @@ function ConsultDoctor() {
     };
 
     return(
+        <>
+        <Header/>
         <div>
             <div className="consultclass">
                 <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}> Back</Button>
@@ -82,6 +86,7 @@ function ConsultDoctor() {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
