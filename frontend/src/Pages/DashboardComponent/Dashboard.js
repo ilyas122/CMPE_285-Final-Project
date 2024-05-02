@@ -329,7 +329,7 @@ const handlePage = () => {
       )} */}
       
       <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#393E46' }}>
-            <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
+            <Typography variant="h3" gutterBottom style={{ marginTop:'20px', marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
             <Select
                 options={options}
                 isMulti
