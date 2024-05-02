@@ -4,7 +4,7 @@ import axios from "axios";
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Header from "./Header";
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 
 function ConsultDoctor() {
     const [doctors, setDoctors] = useState([]);
@@ -12,7 +12,7 @@ function ConsultDoctor() {
     const uemail = localStorage.getItem('email');
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:5000/doctors')
+        axios.get(`${DOMAIN}/doctors`)
             .then(response => {
                 setDoctors(response.data);
             })
@@ -28,8 +28,8 @@ function ConsultDoctor() {
     const handleActionClick = async (doctor) => {
         try {
             const userEmail = localStorage.getItem('email');
-            await axios.put(`http://127.0.0.1:5000/users/${userEmail}`, { doctor_id: selectedDoctorId });
-            await axios.post('http://127.0.0.1:5000/send-mail', { user_email: userEmail, doctor: doctor });
+            await axios.put(`${DOMAIN}/users/${userEmail}`, { doctor_id: selectedDoctorId });
+            await axios.post(`${DOMAIN}/send-mail`, { user_email: userEmail, doctor: doctor });
         } catch (error) {
             console.error('Error updating user record:', error);
         }

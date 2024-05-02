@@ -4,7 +4,7 @@ import axios from "axios";
 import Header from "./Header";
 
 import { useNavigate } from 'react-router-dom';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function Login() {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
@@ -20,10 +20,10 @@ function Login() {
         e.preventDefault();
         try {
             if (isDoctor) {
-                const response = await axios.post('http://127.0.0.1:5000/doctorlogin', { email, password });
+                const response = await axios.post(`${DOMAIN}/doctorlogin`, { email, password });
                 navigate('/doctordashboard');
             } else {
-                const response = await axios.post('http://127.0.0.1:5000/login', { email, password });
+                const response = await axios.post(`${DOMAIN}/login`, { email, password });
                 navigate('/dashboard');
             }
             localStorage.setItem('isLoggedIn', 'true');

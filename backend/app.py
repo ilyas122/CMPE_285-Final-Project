@@ -20,7 +20,7 @@ CORS(app, resources={r"/*": {"origins": "*"}},
 # Configure CORS for specific endpoints
 #CORS(app, resources={r"/send-mail": {"origins": "*"}}, allow_credentials=True, allow_methods=["POST"], allow_headers=["Content-Type"])
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:12345@localhost/smartdoctor'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:gautam@localhost/smartdoctor'
 db = SQLAlchemy(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 # Configure Flask-Mail
@@ -49,6 +49,21 @@ def format_disease(disease):
     return {
         "id": disease.id,
         "name": disease.name,
+    }
+
+# Define Symptom model
+class Symptom(db.Model):
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f"Symptom(id={self.id}, name='{self.name}')"
+
+def format_symptom(symptom):
+    return {
+        "id": symptom.id,
+        "name": symptom.name,
     }
 
 # Define Doctor model
@@ -299,6 +314,61 @@ def get_all_diseases():
         return jsonify(diseases_data), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+# API endpoint to create a new symptom
+@app.route('/symptoms', methods=['GET'])
+def get_all_symptoms():
+    try:
+        # Query all diseases from the database
+        symptoms = Symptom.query.all()
+
+        # Convert users to a list of dictionaries
+        symptoms_data = [format_symptom(symptom) for symptom in symptoms]
+
+        # Return JSON response with users data
+        return jsonify(symptoms_data), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
+# API endpoint for adding symptom
+@app.route('/addsymptom', methods=['POST'])
+def addsymptom():
+    data = request.json
+    name = data.get('name')
+
+    # Check if symptom already exists
+    existing_symptom = Symptom.query.filter_by(name=name).first()
+    if existing_symptom:
+        return jsonify({"error": "Symptom already exists"}), 400
+
+    # Create a new symptom instance
+    new_symptom = Symptom(name=name)
+
+    # Add the new symptom to the database
+    db.session.add(new_symptom)
+    db.session.commit()
+
+    return jsonify({"message": "Symptom added successfully"}), 201
+
+# API endpoint for adding disease
+@app.route('/adddisease', methods=['POST'])
+def adddisease():
+    data = request.json
+    name = data.get('name')
+
+    # Check if disease already exists
+    existing_disease = Disease.query.filter_by(name=name).first()
+    if existing_disease:
+        return jsonify({"error": "Disease already exists"}), 400
+
+    # Create a new disease instance
+    new_disease = Disease(name=name)
+
+    # Add the new disease to the database
+    db.session.add(new_disease)
+    db.session.commit()
+
+    return jsonify({"message": "Symptom added successfully"}), 201
 
 @app.route('/doctors', methods=['GET'])
 def get_all_doctors():

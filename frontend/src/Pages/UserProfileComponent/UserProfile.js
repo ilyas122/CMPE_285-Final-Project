@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from './Header';
-
+const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function UserProfile() {
   const [user, setUser] = useState(null);
   const [editing, setEditing] = useState(false);
@@ -20,7 +20,7 @@ function UserProfile() {
     const fetchUserDetails = async () => {
       try {
         const userEmail = localStorage.getItem("email");
-        const response = await axios.get(`http://127.0.0.1:5000/users/${userEmail}`);
+        const response = await axios.get(`${DOMAIN}/users/${userEmail}`);
         setUser(response.data);
         setFormData(response.data); // Set initial form data
       } catch (error) {
@@ -40,7 +40,7 @@ function UserProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://127.0.0.1:5000/users/${user.email}`, formData);
+      const response = await axios.put(`${DOMAIN}/users/${user.email}`, formData);
       setUser(response.data); // Update user details in state
       setEditing(false);
     } catch (error) {
