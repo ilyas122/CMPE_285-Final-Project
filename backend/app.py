@@ -28,7 +28,7 @@ app.config['MAIL_DEFAULT_SENDER'] = 'masterproject@fastmail.com'
 app.config['MAIL_SERVER'] = 'smtp.fastmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'masterproject@fastmail.com'  # Replace with your Gmail email
-app.config['MAIL_PASSWORD'] = 'hu65tebh7kws6eta'         # Replace with your Gmail password
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PW')        # Replace with your Gmail password
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 
