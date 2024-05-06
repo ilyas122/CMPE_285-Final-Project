@@ -3,8 +3,10 @@ import "./ConsultDoctor.css";
 import axios from "axios";
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Header from "./Header";
+// import Header from "./Header";
+import Header from "../HeaderComponent/Header.js";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
+
 
 function ConsultDoctor() {
     const [doctors, setDoctors] = useState([]);
@@ -12,6 +14,11 @@ function ConsultDoctor() {
     const uemail = localStorage.getItem('email');
 
     useEffect(() => {
+        const pageName = window.location.pathname.split('/').pop();
+        // Store the page name in localStorage with a key
+        localStorage.setItem('currentPage', 'consultDoctor');
+
+
         axios.get(`${DOMAIN}/doctors`)
             .then(response => {
                 setDoctors(response.data);
@@ -37,7 +44,7 @@ function ConsultDoctor() {
 
     return(
         <div>
-        <Header/>
+        {/* <Header/> */}
         {/* <div> */}
             <div className="consultclass">
                 <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}> Back</Button>

@@ -41,12 +41,12 @@ function SignUp() {
         <Header />
         <div className="container LoginOutlier">
     <div className="row">
-        <div className="col-6 leftLoginOutlier">
+        {/* <div className="col-6 leftLoginOutlier">
             <div className="content">
                 <img src="./image.png" alt="Doctor" />
                 <h2>Be your own Doctor</h2>
             </div>
-        </div>
+        </div> */}
         <div className="col RightLoginOutlier">
             <div className="container loginContainer">
                 <div className="loginBox">

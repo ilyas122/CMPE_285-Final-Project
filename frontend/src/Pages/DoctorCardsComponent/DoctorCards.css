@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Poppins&display=swap');
+
 /* Background styles */
 body {
     background-color: #393E46;
-    padding-top: 50px;
+    /* padding-top: 50px; */
   }
   
   /* Search bar styles */
@@ -14,6 +16,10 @@ body {
     background-color: #393E46; /* Change the background color */
   }
   
+  .doctor-cards{
+    font-family: 'Poppins', sans-serif;
+    padding-top: 50px;
+  }
   .search-bar input {
     background-color: transparent; /* Make the input background transparent */
     border: none; /* Remove the border */

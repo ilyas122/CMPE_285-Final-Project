@@ -1,19 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Poppins&display=swap');
+
+.dashboard{
+  font-family: 'Poppins', sans-serif;
+}
+.globalFont{
+  font-family: 'Poppins', sans-serif;
+}
 .chatbot-container {
   position: fixed;
   bottom: 10px;
   right: 10px;
-  width: 12vw;
+  width: 15vw;
   height: 5vh;
   background-color: black; /* Change the background color */
   color: black;
   border: 1px solid #ccc;
+  font-family: 'Poppins', sans-serif;
   border-radius: 10px;
   overflow: hidden;
   transition: height 0.3s ease;
   font-size: medium;
   border-color: black;
 }
-  
+
+Button{
+  font-family: 'Poppins', sans-serif;
+}
   .chatbot-container.expanded {
     height: 50vh;
     width: 30vw; 
@@ -53,7 +65,7 @@
   
   
   .chatbot-container.expanded {
-    height: calc(50vh - 40px); /* Adjust height for expanded chatbot container */
+    height: calc(70vh - 10px); /* Adjust height for expanded chatbot container */
   }
   
   .healthgptMargin{
@@ -73,8 +85,9 @@
   }
   .navbarButtons .btn {
     margin-right: 10px; 
-    font-size: 15px;
+    font-size: 10px;
     font-weight: bold;
+    width: auto;
     background-color: #90E0EF;
     border-color: black;
     color: black;
@@ -91,7 +104,7 @@
   .navbar{
     background-color:black;
     border-radius: 0px 0px 15px 15px;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
   }
   .profile-info {
@@ -231,6 +244,7 @@
     border: 1px solid #888;
     padding: 20px;
     background-color:black;
+    font-family: 'Poppins', sans-serif;
     color:white;
     border-color:black;
     align-items: center;

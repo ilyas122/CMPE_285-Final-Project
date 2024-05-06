@@ -8,11 +8,14 @@ import ArrowDownwardSharpIcon from "@mui/icons-material/ArrowDownwardSharp";
 import Avatar from '@mui/material/Avatar';
 import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
-import Header from "./Header";
+// import Header from "./Header";
+import Header from "../HeaderComponent/Header.js";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 
 
-function Dashboard() {
+function Dashboard(props) {
+  console.log("Props:", props); // Check if props.onSendData exists
+
   const [selected, setSelected] = useState([]);
   const [options,setOptions]=useState([]);
   const [prediction, setPrediction] = useState("");
@@ -27,6 +30,7 @@ function Dashboard() {
   const [response, setResponse] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const scrollToBottomRef = useRef(null); 
+  const [pageName, setPageName] = useState(null);
 
   useEffect(() => {
     axios.get(`${DOMAIN}/symptoms`)
@@ -36,6 +40,12 @@ function Dashboard() {
       .catch(error => {
         console.error('Error fetchingsymptoms:', error);
       });
+  }, []);
+
+  useEffect(() => {
+    const page = window.location.pathname.split('/').pop();
+    localStorage.setItem('currentPage', page);
+    setPageName(page);
   }, []);
 
   useEffect(() => {
@@ -213,10 +223,10 @@ const handlePage = () => {
 
 
   return (
-    <div>
-      <Header/>      
+    <div className="globalFont">
+      <Header data={pageName} />      
       <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#393E46' }}>
-            <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff' }}>Select your symptoms:</Typography>
+            <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff', fontFamily: 'Poppins, sans-serif' }}>Select your symptoms:</Typography>
             <Select
                 options={options}
                 isMulti
