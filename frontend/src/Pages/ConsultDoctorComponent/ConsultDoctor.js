@@ -36,9 +36,9 @@ function ConsultDoctor() {
     };
 
     return(
-        <>
-        <Header/>
         <div>
+        <Header/>
+        {/* <div> */}
             <div className="consultclass">
                 <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}> Back</Button>
                 <h2>Consult Doctor 👨‍⚕️</h2>
@@ -86,7 +86,7 @@ function ConsultDoctor() {
                 </div>
             </div>
         </div>
-        </>
+        // </div>
     );
 }
 
