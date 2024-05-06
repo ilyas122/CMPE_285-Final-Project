@@ -269,7 +269,7 @@ const handlePage = () => {
           >
             Predict
           </Button>
-          <Button
+          {prediction && <Button
             variant='contained'
             size='large'
             onClick={handleDisease}
@@ -285,7 +285,7 @@ const handlePage = () => {
             }}
           >
             Add Disease
-          </Button>
+          </Button>}
 
             {prediction && confidence && (
                 <Box sx={{ width: '800px', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)' }}>
