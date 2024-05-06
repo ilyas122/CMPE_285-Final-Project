@@ -318,8 +318,8 @@ const handlePage = () => {
       <div className={`chatbot-container ${isExpanded ? "expanded" : ""}`}>
         <div ref={contentRef}>
           <span className="healthgptTitle gradient" onClick={isExpanded ? toggleChatbot : openDialog}>
-            <p>Health GPT 🩺</p>
-            <span onClick={isExpanded ? closeDialog : openDialog} className="move-arrow">
+            <p className="healthgptMargin">Health GPT 🩺</p>
+            <span onClick={isExpanded ? closeDialog : openDialog} className="move-arrow healthgptMargin">
               {isExpanded ? <ArrowDownwardSharpIcon style={{ color: 'white' }}/> : <ArrowUpwardSharpIcon style={{ color: 'white' }}/>}
             </span>
           </span>
@@ -360,7 +360,7 @@ const handlePage = () => {
       </div>
 
       <dialog ref={dialogRef} onDismiss={closeDialog} className="dialog-container">
-        <div className="row">
+        <div className="row openaiButtonAlign">
           <h2>Enter Open API Key🔐 </h2>
         </div>
         <div className="row">
@@ -369,10 +369,10 @@ const handlePage = () => {
           />
         </div>
         <div className="row">
-          <div className="col">
+          <div className="col openaiButtonAlign">
           <button onClick={handleApiKeySubmit} type="button" class="btn btn-primary dialog-buttons">Submit</button>
           </div>
-          <div className="col">
+          <div className="col openaiButtonAlign">
           <button onClick={closeDialog} type="button" class="btn btn-primary dialog-buttons">Cancel</button>
           </div>
         </div>

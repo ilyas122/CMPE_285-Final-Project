@@ -4,13 +4,14 @@
   right: 10px;
   width: 12vw;
   height: 5vh;
-  background-color: #00ADB5; /* Change the background color */
+  background-color: black; /* Change the background color */
   color: black;
   border: 1px solid #ccc;
   border-radius: 10px;
   overflow: hidden;
   transition: height 0.3s ease;
   font-size: medium;
+  border-color: black;
 }
   
   .chatbot-container.expanded {
@@ -43,7 +44,9 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    max-height: calc(100% - 40px); /* Adjust height for chat interface */
+    overflow-x: auto;
+    /* min-height: calc(100% - 40px); Adjust height for chat interface */
+    max-height:34vh;
     padding: 10px;
     box-sizing: border-box;
   }
@@ -51,6 +54,54 @@
   
   .chatbot-container.expanded {
     height: calc(50vh - 40px); /* Adjust height for expanded chatbot container */
+  }
+  
+  .healthgptMargin{
+    margin-top:10px;
+    margin-bottom: 10px;
+  }
+
+  .openaiButtonAlign{
+    display: flex;
+  justify-content: center;
+  }
+
+  .navbarButtons{
+    float: right;
+    display: flex;
+  justify-content: space-between;
+  }
+  .navbarButtons .btn {
+    margin-right: 10px; 
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #90E0EF;
+    border-color: black;
+    color: black;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+      border-color: black;
+      background-image: linear-gradient(90deg, #FEE140 50%, #FA709A 100%);
+      color: black;
+      /* -webkit-background-clip: text; */
+    }
+  }
+  
+  .navbar{
+    background-color:black;
+    border-radius: 0px 0px 15px 15px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  .profile-info {
+    display: flex; /* Make the profile info a flexbox */
+    align-items: center; /* Align content vertically */
+    margin-right: 10px; /* Add margin between text and icon */
+  }
+  
+  .profile-info .profile-text { /* Assuming a class for the text */
+    margin-right: 5px; /* Add extra margin between text and icon */
   }
   
   .user-message {
@@ -179,7 +230,23 @@
     border-radius: 8px;
     border: 1px solid #888;
     padding: 20px;
-    background-color: #fff;
+    background-color:black;
+    color:white;
+    border-color:black;
+    align-items: center;
+  }
+
+  .dialog-container .btn{
+    background-color:#90E0EF;
+    color:black;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.5); /* Black with 50% transparency */
+      border-color: black;
+      background-image: linear-gradient(90deg, #FEE140 50%, #FA709A 100%);
+      color: black;
+      /* -webkit-background-clip: text; */
+    }
   }
   
   .dialog-buttons {
