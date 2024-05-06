@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./DoctorCards.css";
 import axios from "axios";
 import { Card, CardContent, Typography, Button, TextField, Snackbar, Alert } from "@mui/material";
-import Header from "./Header";
+import Header from "../HeaderComponent/Header.js";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorCards() {
   const [doctors, setDoctors] = useState([]);
@@ -10,8 +10,13 @@ function DoctorCards() {
   const [expandedDoctor, setExpandedDoctor] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [isSuccess,setIsSuccess]=useState(true);
+  const [pageName, setPageName] = useState(null);
 
   useEffect(() => {
+    const pageName = window.location.pathname.split('/').pop();
+    localStorage.setItem('currentPage', pageName);
+
+
     axios.get(`${DOMAIN}/doctors`)
       .then(response => {
         setDoctors(response.data);
@@ -19,6 +24,12 @@ function DoctorCards() {
       .catch(error => {
         console.error('Error fetching doctors:', error);
       });
+  }, []);
+
+  useEffect(() => {
+    const page = window.location.pathname.split('/').pop();
+    localStorage.setItem('currentPage', page);
+    setPageName(page);
   }, []);
 
   const handleActionClick = async (doctor) => {
@@ -58,7 +69,7 @@ function DoctorCards() {
 
   return (
     <>
-    <Header/>
+    <Header data={pageName}/>
     <div className="doctor-cards">
     <div className="search-bar" style={{ border: '2px solid #08D9D6', padding: '5px', borderRadius: '5px', marginBottom: '10px', marginTop: '20px' }}>
 

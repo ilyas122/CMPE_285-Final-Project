@@ -10,7 +10,7 @@
 
 .leftLoginOutlier {
     height: auto;
-    background-color: #393E46;
+    background-color: black;
     color: white;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 }
 .RightLoginOutlier {
     height: auto; /* Set height to auto to adjust based on content */
-    background-color:#393E46 ;
+    background-color:black ;
     color: black;
     display: flex;
     justify-content: center;
@@ -41,7 +41,7 @@
 .loginBox {
     border-color: black;
     border-radius: 25px;
-    background-color: black;
+    background-color: #393E46;
     color: white;
     width: 80%;
     max-width: 400px;

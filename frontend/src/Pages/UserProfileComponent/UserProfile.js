@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from './Header';
+// import Header from './Header';
+import Header from "../HeaderComponent/Header.js";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function UserProfile() {
   const [user, setUser] = useState(null);
   const [editing, setEditing] = useState(false);
+  const [pageName, setPageName] = useState(null);
   const [formData, setFormData] = useState({
     fullname: "",
     email: "",
@@ -14,6 +16,12 @@ function UserProfile() {
     diseases: [],
     // Add other fields as needed
   });
+
+  useEffect(() => {
+    const page = window.location.pathname.split('/').pop();
+    localStorage.setItem('currentPage', page);
+    setPageName(page);
+  }, []);
 
   // Function to fetch user details based on email
   useEffect(() => {
@@ -30,6 +38,8 @@ function UserProfile() {
 
     fetchUserDetails();
   }, []);
+
+
 
   // Function to handle form input changes
   const handleChange = (e) => {
@@ -50,7 +60,7 @@ function UserProfile() {
 
   return (
     <>
-    <Header/>
+    <Header  data={pageName} />
     <div style={{ backgroundColor: "#393E46", minHeight: "100vh", padding: "20px" }}>
       <Header />
       <div style={{ backgroundColor: "#08D9D6", padding: "20px", borderRadius: "10px", color: "#393E46" }}>

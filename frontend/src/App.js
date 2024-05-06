@@ -1,4 +1,5 @@
 import './App.css';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/LoginComponent/Login';
 import Dashboard from './Pages/DashboardComponent/Dashboard';
@@ -11,12 +12,18 @@ import DoctorProfile from './Pages/DoctorProfileComponent/DoctorProfile';
 import UserProfile from './Pages/UserProfileComponent/UserProfile';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState(null);
+
+  const handleDataFromChild = (newData) => {
+    console.log("Page Name:::",newData);
+    setCurrentPage(newData);
+  }
   return (
     <Router>
       <Routes>
         <Route path="/" element = {<Login/>}></Route>
         <Route path="/signup" element = {<SignUp/>}></Route>
-        <Route path="/dashboard" element = {<Dashboard/>}></Route>
+        <Route path="/dashboard" element = {<Dashboard/>} onSendData={handleDataFromChild}></Route>
         {/* <Route path="/consultdoctor" element = {<ConsultDoctor/>}></Route> */}
         <Route path="/doctordashboard" element = {<DoctorDashboard/>}></Route>
         <Route path="/consultdoctor" element = {<DoctorCards/>}></Route>
