@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@nextui-org/input": "^2.1.21",
+    "typewriter-effect": "^2.21.0"
+  }
+}

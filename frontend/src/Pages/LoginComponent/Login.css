@@ -11,7 +11,7 @@
 /* Left side login outlier */
 leftLoginOutlier {
     height: 100vh;
-    background-color: black;
+    background-color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,6 +19,7 @@ leftLoginOutlier {
 }
 .noPadding{
     padding:0px !important;
+    height:100vh;
     /* display: flex;
     justify-content: center;
     align-items: center; */
@@ -27,6 +28,17 @@ leftLoginOutlier {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-color: rgb(160, 160, 160);
+    border-width: 20px;
+    box-sizing: border-box; 
+
+}
+
+btn {
+    background-color: mediumspringgreen !important;
+    color: black !important;
+    font-weight: bolder !important;
+
 }
 
 .loginWidth{
@@ -37,6 +49,33 @@ leftLoginOutlier {
     font-family: 'Poppins', sans-serif;
     padding: 0px !important;
 }
+
+.loginWidth .loginContainer { /* More specific selector */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    border-width: 20px;
+    border-color: green; /* Adjust color as needed */
+    box-sizing: border-box; /* Ensure border width is included */
+  }
+
+  .inputclass{
+    background-color: black !important;
+    color: white !important;
+    border-color: mediumspringgreen !important;
+}
+
+.border-right-green { /* Green border on right side (left-to-right) */
+    border-right: 2px solid green;
+  }
+  
+  .border-left-green { /* Green border on left side (right-to-left) */
+    border-left: 2px solid green;
+  }
+  
+  
 
 .content {
     text-align: center; /* Center the text */
@@ -72,27 +111,16 @@ h2 {
 }
 
 .projectTitle{
-    /* width: 100vw; */
-    /* background-color: yellow; */
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* background-color: #FEE140;
-    background-image: linear-gradient(90deg, #FEE140 0%, #FA709A 100%);
-    -webkit-background-clip: text;
-    color: transparent; */
-
     background-color: rgb(253,34,29);
     background-image: linear-gradient(90deg, rgba(253,34,29,1) 27%, rgba(252,176,69,1) 100%);
     -webkit-background-clip: text;
     color: transparent;
-
     margin-top: 5vh;
-
     font-size: 40px;
     font-weight: bold;
-
 }
 
 /* Login box */
@@ -100,7 +128,9 @@ h2 {
     display: flex;
     flex-direction: column;
     border-radius: 25px;
-    background-color: #393E46;
+    /* background-color: black; */
+    border-color: rgb(160, 160, 160);
+    border-radius: 20px;
     color: white;
     min-width: 30vw;
     min-height: 50vh;

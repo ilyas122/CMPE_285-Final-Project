@@ -10,6 +10,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ChatIcon from '@mui/icons-material/Chat';
 // import Header from "./Header";
 import Header from "../HeaderComponent/Header.js";
+import Typewriter from 'typewriter-effect';
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 
 
@@ -211,6 +212,14 @@ const handleDisease = async (e) => {
     }
   };
 
+  const getTypewriterStrings = () => {
+    return [
+      "Feeling off 🙁? Let's explore what's going on.",
+      "Symptom curious? We can help you understand 🤝.",
+      "Health concern 🤒? We're here to guide you."
+    ];
+  };
+
   const handleSelectionChange = (selectedOptions) => {
     setSelected(selectedOptions);
     setPrediction('');
@@ -225,12 +234,18 @@ const handlePage = () => {
   return (
     <div className="globalFont">
       <Header data={pageName} />      
-      <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: '#393E46' }}>
-            <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff', fontFamily: 'Poppins, sans-serif' }}>Select your symptoms:</Typography>
+      <div className='dashboard' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', background: 'black' }}>
+            <div className='typewriter'>
+              <Typewriter options={{ strings: getTypewriterStrings(), autoStart: true, loop: true, delay: 40 }} />
+            </div>
+            {/* <Typography variant="h3" gutterBottom style={{ marginBottom: '40px', color: '#fff', fontFamily: 'Poppins, sans-serif' }}>Select your symptoms:</Typography> */}
             <Select
                 options={options}
                 isMulti
                 value={selected}
+                placeholder="Select your symptoms:"
+                background-color="white"
+                color="black"
                 onChange={handleSelectionChange}
                 getOptionLabel={(option) => option.name} // Display the disease name in the dropdown
                 getOptionValue={(option) => option.id}
@@ -278,7 +293,7 @@ const handlePage = () => {
             }}
           >
             Predict
-          </Button>
+          </Button>          
           {prediction && <Button
             variant='contained'
             size='large'

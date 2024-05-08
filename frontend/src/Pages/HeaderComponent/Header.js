@@ -35,7 +35,8 @@ function Header({data}) {
         <div className="col-lg-8">
           <Link to="/dashboard" className="gradient">
             <img src="/logo.png" alt="Logo" style={{ marginRight: "10px", height: "30px"}} />
-            Disease Prediction System
+            {/* Disease Prediction System */}
+            SymptomDx
           </Link>
         </div>
         
