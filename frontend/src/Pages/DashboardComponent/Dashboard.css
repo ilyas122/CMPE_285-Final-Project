@@ -20,7 +20,13 @@
   overflow: hidden;
   transition: height 0.3s ease;
   font-size: medium;
-  border-color: black;
+  /* border-color: black; */
+
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(to right, #ff8a00, #e52e71) 1;
+  /* padding: 20px; */
+  
 }
 
 Button{
@@ -282,5 +288,13 @@ Button{
   
   .dialog-buttons button:hover {
     background-color: #ddd;
+  }
+
+  .typewriter{
+    color:white;
+    font-size:30px;
+    font-weight: bolder;
+    float:left;
+    margin-bottom: 30px;
   }
   

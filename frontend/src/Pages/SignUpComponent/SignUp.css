@@ -9,8 +9,8 @@
 }
 
 .leftLoginOutlier {
-    height: auto;
-    background-color: black;
+    height: 100vh;
+    background-color: white;
     color: white;
     display: flex;
     flex-direction: column;
@@ -19,6 +19,18 @@
     padding-bottom: 50px; /* Add padding to the bottom */
 }
 
+.projectTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(253,34,29);
+    background-image: linear-gradient(90deg, rgba(253,34,29,1) 27%, rgba(252,176,69,1) 100%);
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-top: 5vh;
+    font-size: 40px;
+    font-weight: bold;
+}
 
 /* Login Container */
 .loginContainer {
@@ -27,6 +39,9 @@
     justify-content: center;
     align-items: center;
     min-height: 90vh;
+    border-width: 20px;
+    border-color: green;
+    box-sizing: border-box; 
 }
 .RightLoginOutlier {
     height: auto; /* Set height to auto to adjust based on content */
@@ -39,9 +54,9 @@
 }
 
 .loginBox {
-    border-color: black;
-    border-radius: 25px;
-    background-color: #393E46;
+    background-color: black;
+    border: 1px solid #ccc; /* Add a new solid border */
+    box-sizing: border-box; 
     color: white;
     width: 80%;
     max-width: 400px;
@@ -55,6 +70,40 @@
     margin-top: 20px; /* Add margin to the top */
 }
 
+.inputclass{
+    background-color: black !important;
+    color: white !important;
+    border-color: mediumspringgreen !important;
+}
+
+button {
+    background-color: mediumspringgreen !important;
+    color: black !important;
+    font-weight: bolder !important;
+    border-color: transparent !important;
+    margin-right: 10px;
+}
+
+.border-right-green { /* Green border on right side (left-to-right) */
+    border-right: 2px solid green;
+  }
+  
+  .border-left-green { /* Green border on left side (right-to-left) */
+    border-left: 2px solid green;
+  }
+  
+
+.loginWidth .loginContainer { /* More specific selector */
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    border-width: 20px;
+    border-color: green; /* Adjust color as needed */
+    box-sizing: border-box; /* Ensure border width is included */
+  }
+  
 /* Form Inputs */
 .border {
     border: 1px solid #ced4da;
