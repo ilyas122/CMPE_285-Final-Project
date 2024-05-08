@@ -4,12 +4,18 @@ import axios from "axios"; // Import Axios for making HTTP requests
 import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Header from "./Header";
+//import Header from "../HeaderComponent/Header";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorDashboard() {
     const [users, setUsers] = useState([]);
     const [selectedDoctorId, setSelectedDoctorId] = useState(null); // State to store the selected doctor's ID
     const demail = localStorage.getItem('email');
     console.log("SS:",demail);
+    useEffect(() => {
+        const page = window.location.pathname.split('/').pop();
+        localStorage.setItem('currentPage', page);
+        //setPageName(page);
+      }, []);
     useEffect(() => {
         // Fetch doctor data from the API
         axios.get(`${DOMAIN}/doctors/${demail}`)
@@ -40,7 +46,7 @@ function DoctorDashboard() {
         <>
         <Header />
         <div className="consultclass">
-            <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}style={{ backgroundColor: '#393E46', color: 'white',margin: '10px 0' }}> Back</Button> {/* Use ArrowBackIcon */}
+            {/* <Button variant="contained" onClick={handleGoBack} startIcon={<ArrowBackIcon />}style={{ backgroundColor: '#393E46', color: 'white',margin: '10px 0' }}> Back</Button> Use ArrowBackIcon */}
             <h1>Consult Doctor 👨‍⚕️</h1>
             <div>
                 <TableContainer component={Paper}>

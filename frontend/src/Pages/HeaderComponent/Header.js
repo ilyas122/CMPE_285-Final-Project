@@ -8,12 +8,15 @@ import PersonIcon from '@mui/icons-material/Person';
 function Header({data}) {
 
     // const location = useLocation();
-    // const [currentPageName, setCurrentPageName] = useState(null);
+    const [currentPageName, setCurrentPageName] = useState(null);
   
     useEffect(() => {
       console.log("xxxx::",data);
+      const currentPage = localStorage.getItem('currentpage');
+      setCurrentPageName(currentPage);
+      console.log("yyyy::",currentPage);
     // Cleanup function (optional)
-  }, []); // Dependency array
+  }, [currentPageName]); // Dependency array
 
 
     const consultDoctorRoute = () => {
@@ -23,9 +26,19 @@ function Header({data}) {
       const userProfileRoute = () => {
         window.location.href = '/userprofile';
       };
+      const doctorProfileRoute = () => {
+        window.location.href = '/doctorprofile';
+      };
     
       const dashboardRoute = () => {
         window.location.href = '/dashboard';
+      };
+
+      const logoutRoute = () => {
+        localStorage.removeItem('email');
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('isDoctor');
+        window.location.href = '/';
       };
 
   return (
@@ -71,12 +84,25 @@ function Header({data}) {
                         <PersonIcon></PersonIcon>
                     </span>
                 </button>
+                <button class="btn btn-primary col-lg-2 " onClick={logoutRoute}>LogOut</button>
             </div>
         )}
-        {data === 'userprofile' && (
+        {currentPageName === 'doctordashboard' && (
+            <div className="navbarButtons">
+                <button class="btn btn-primary col-lg-2 " onClick={doctorProfileRoute}>
+                    <span class="profile">
+                        <span class="profile-text">Profile</span>
+                        <PersonIcon></PersonIcon>
+                    </span>
+                </button>
+                <button class="btn btn-primary col-lg-2 " onClick={logoutRoute}>LogOut</button>
+            </div>
+        )}
+        {currentPageName === 'userprofile' && (
             <div className="navbarButtons">
                 <button class="btn btn-primary col-lg-2 " onClick={dashboardRoute}>Dashboard</button>
                 <button class="btn btn-primary col-lg-2 " onClick={consultDoctorRoute}>Consult Doctor</button>
+                <button class="btn btn-primary col-lg-2 " onClick={logoutRoute}>Logout</button>
             </div>
         )}
         {data === 'consultdoctor' && (
