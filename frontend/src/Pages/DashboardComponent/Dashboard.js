@@ -32,6 +32,7 @@ function Dashboard(props) {
   const [chatHistory, setChatHistory] = useState([]);
   const scrollToBottomRef = useRef(null); 
   const [pageName, setPageName] = useState(null);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     axios.get(`${DOMAIN}/symptoms`)
@@ -48,6 +49,18 @@ function Dashboard(props) {
     localStorage.setItem('currentPage', page);
     setPageName(page);
   }, []);
+
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) =>
+        prevProgress >= confidence ? confidence : prevProgress + 1
+      );
+    }, 20);
+    return () => {
+      clearInterval(timer);
+    };
+  }, [confidence]);
 
   useEffect(() => {
     if (isExpanded && contentRef.current) {
@@ -280,7 +293,7 @@ const handlePage = () => {
             variant='contained'
             size='large'
             onClick={handlePredict}
-            disabled={selected.length === 0}
+            // disabled={selected.length === 0}
             style={{
               fontSize: '1.5rem',
               marginBottom: '30px',
@@ -294,7 +307,7 @@ const handlePage = () => {
           >
             Predict
           </Button>          
-          {prediction && <Button
+          {/* {prediction && <Button
             variant='contained'
             size='large'
             onClick={handleDisease}
@@ -310,13 +323,46 @@ const handlePage = () => {
             }}
           >
             Add Disease
-          </Button>}
+          </Button>} */}
 
             {prediction && confidence && (
                 <Box sx={{ width: '800px', backgroundColor: '#fff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)' }}>
-                    <Typography variant="h5" gutterBottom style={{ marginBottom: '10px' }}>Confidence Score:</Typography>
-                    <LinearProgress variant="determinate" value={confidence} style={{ marginBottom: '10px', backgroundColor: '#e0e0e0', borderRadius: '5px' }} />
-                    <Typography variant="subtitle1" gutterBottom>{`Predicted disease: ${prediction} (${confidence}%)`}</Typography>
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '10px', borderRadius: '5px' }}>{`Predicted Disease: ${prediction} `}</Typography>
+                    <Typography variant="h5" gutterBottom style={{ marginBottom: '10px' }}>Confidence Score: {confidence}%</Typography>
+                    {/* <LinearProgress variant="determinate" value={confidence} style={{ marginBottom: '10px', backgroundColor: '#e0e0e0', borderRadius: '5px' }} /> */}
+
+                    {/* <LinearProgress
+                        variant="determinate"
+                        value={confidence}
+                        style={{
+                          marginBottom: '10px',
+                          backgroundColor: '#e0e0e0',
+                          height:'15px',
+                          borderRadius: '5px',
+                          // Set color based on confidence value
+                          color: confidence < 40 ? 'green' : confidence >= 40 && confidence <= 70 ? 'yellow' : 'red',
+                        }}
+                      /> */}
+
+
+
+<LinearProgress
+      variant="determinate"
+      value={progress}
+      style={{
+        marginBottom: '10px',
+        backgroundColor: '#e0e0e0',
+        borderRadius: '5px',
+        height: '15px',
+        animation: 'progressAnimation 2s linear',
+      }}
+    />
+
+
+
+                    {/* <Typography variant="subtitle1" gutterBottom>{`Predicted disease: ${prediction} (${confidence}%)`}</Typography> */}
+
+                    <div className="buttonDiv">
                     <Button
                       variant='contained'
                       size='large'
@@ -334,6 +380,32 @@ const handlePage = () => {
                     >
                       Consult
                     </Button>
+
+                    {prediction && <Button
+                        variant='contained'
+                        size='large'
+                        onClick={handleDisease}
+                        style={{
+                          fontSize: '1.5rem',
+                          marginBottom: '30px',
+                          backgroundColor: '#08D9D6', // Changed color
+                          color: '#fff', // Text color
+                          padding: '15px 30px',
+                          borderRadius: '10px',
+                          boxShadow: '0px 4px 5px rgba(0, 0, 0, 0.2)',
+                          zIndex: 1,
+                          marginLeft: '10px'
+                        }}
+                      >
+                        Add To History
+                      </Button>}
+
+          </div>
+
+
+          <div className="buttonDiv">
+            <h5> Want to know about {prediction}.Chat with   <span className="gradient2" onClick={isExpanded ? closeDialog : openDialog} style={{cursor:'pointer', fontWeight:'bolder'}}> Health GPT </span><span className="move-arrow">👉</span></h5>
+          </div>
 
                 </Box>
             )}            
@@ -384,27 +456,28 @@ const handlePage = () => {
         </div>
       </div>
 
-      <dialog ref={dialogRef} onDismiss={closeDialog} className="dialog-container">
-        <div className="row openaiButtonAlign">
-          <h2>Enter Open API Key🔐 </h2>
-        </div>
-        <div className="row">
-          <input
-            type="text" placeholder="Enter Open API Key" onChange={(e) => setApiKey(e.target.value)}
-          />
-        </div>
-        <div className="row">
-          <div className="col openaiButtonAlign">
-          <button onClick={handleApiKeySubmit} type="button" class="btn btn-primary dialog-buttons">Submit</button>
-          </div>
-          <div className="col openaiButtonAlign">
-          <button onClick={closeDialog} type="button" class="btn btn-primary dialog-buttons">Cancel</button>
-          </div>
-        </div>
-        
-        
-        
-      </dialog>
+      <div className="dialog-overlay">
+              <dialog ref={dialogRef} onDismiss={closeDialog} className="dialog-container">
+                <div className="row openaiButtonAlign">
+                  <h2>Enter Open API Key🔐 </h2>
+                </div>
+                <div className="row">
+                  <input
+                    type="text" placeholder="Enter Open API Key" onChange={(e) => setApiKey(e.target.value)}
+                  />
+                </div>
+                <div className="row">
+                  <div className="col openaiButtonAlign">
+                  <button onClick={handleApiKeySubmit} type="button" class="btn btn-primary dialog-buttons">Submit</button>
+                  </div>
+                  <div className="col openaiButtonAlign">
+                  <button onClick={closeDialog} type="button" class="btn btn-primary dialog-buttons">Cancel</button>
+                  </div>
+                </div>
+              </dialog>
+      </div>
+
+
     </div>
   );
 }
