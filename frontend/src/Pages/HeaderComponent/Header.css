@@ -31,6 +31,7 @@
     border-radius: 0px 0px 15px 15px;
     font-size: 20px;
     font-weight: bold;
+    border-bottom:2px solid white;
   }
   .profile-info {
     display: flex; /* Make the profile info a flexbox */
