@@ -169,9 +169,9 @@ def send_hello_email():
     doctor_speciality = doctor.get('speciality')
     doctor_contact = doctor.get('contact')
     # Create email message
-    msg = Message('Hello', recipients=[user_email])
+    msg = Message('SymptomDx', recipients=[user_email])
     #msg.body = f"Hello there! This is a Master project test email.nLocation: {doctor_location}"
-    msg.body = f"Hello there!\n\nHere are the details of your doctor:\n\nName: {doctor_name}\nLocation: {doctor_location}\nSpeciality: {doctor_speciality}\nContact: {doctor_contact}\n\nThank you for choosing our service."
+    msg.body = f"Hello there!\n\nWe are delighted to confirm your upcoming appointment. Here are the details you'll need:\n\nName: {doctor_name}\nLocation: {doctor_location}\nSpeciality: {doctor_speciality}\nContact: {doctor_contact}\n\nThank you for choosing our service."
 
     try:
         # Send email

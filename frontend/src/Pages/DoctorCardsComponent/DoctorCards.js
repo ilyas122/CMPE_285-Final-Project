@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./DoctorCards.css";
 import axios from "axios";
-import { Card, CardContent, Typography, Button, TextField, Snackbar, Alert } from "@mui/material";
+//import { Card, CardContent, Typography, Button, TextField, Snackbar, Alert } from "@mui/material";
+import {TextField, Snackbar, Alert } from "@mui/material";
 import Header from "../HeaderComponent/Header.js";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+import {Button, ButtonGroup} from "@nextui-org/button";
 const DOMAIN = process.env.REACT_APP_DOMAIN_URL;
 function DoctorCards() {
   const [doctors, setDoctors] = useState([]);
@@ -11,6 +14,21 @@ function DoctorCards() {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [isSuccess,setIsSuccess]=useState(true);
   const [pageName, setPageName] = useState(null);
+
+
+  ///
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsExpanded(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsExpanded(false);
+  };
+
+  //
 
   useEffect(() => {
     const pageName = window.location.pathname.split('/').pop();
@@ -71,43 +89,68 @@ function DoctorCards() {
     <>
     <Header data={pageName}/>
     <div className="doctor-cards">
-    <div className="search-bar" style={{ border: '2px solid #08D9D6', padding: '5px', borderRadius: '5px', marginBottom: '10px', marginTop: '20px' }}>
+    <div className="search-bar">
 
         <TextField
           label="Search by speciality"
-          variant="outlined"
+          variant="standard"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ 
+            border: '2px solid #08D9D6', 
+            padding: '5px', 
+            borderRadius: '5px', 
+            marginBottom: '10px', 
+            marginTop: '20px',
+            width: '100%'
+          }}
           InputLabelProps={{
             style: { color: '#08D9D6' } // Change text color of label
           }}
           inputProps={{
-            style: { color: '#08D9D6' } // Change text color of input field
+            style: { color: '#08D9D6',  } // Change text color of input field
           }}
         />
       </div>
 
-      <div className="cards-container">
+      <div className="cards-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', margin:'40px' }}>
         {filteredDoctors.map((doctor) => (
-          <Card key={doctor.id} className={`card ${expandedDoctor === doctor.id ? "expanded" : ""}`} style={{ backgroundColor: '#08D9D6', marginLeft: '50px' }}>
-
-            <CardContent onClick={() => handleCardClick(doctor)}>
-              <Typography variant="h5">{doctor.name}</Typography>
-              <Typography variant="body1">{doctor.speciality}</Typography>
-              {expandedDoctor === doctor.id && (
-                <div className="expanded-details">
-                  <Typography variant="body2">Doctor Id: {doctor.id}</Typography>
-                  <Typography variant="body2">Contact: {doctor.contact}</Typography>
-                  <Typography variant="body2">Location: {doctor.location}</Typography>
-                </div>
-              )}
-            </CardContent>
-            <div className="card-action">
-              <Button onClick={() => handleActionClick(doctor)}>Consult</Button>
-            </div>
+          <Card key={doctor.id} className="max-w-[30%] mb-4" style={{ backgroundColor: '#000', border: '2px solid #08d9d6', borderRadius: '10px', color: '#fff', minWidth: '300px' }}>
+            <CardHeader className="flex gap-3">
+              {/* <Image
+                alt="doctor image"
+                height={40}
+                radius="sm"
+                src={doctor.image}
+                width={40}
+              /> */}
+              <div className="flex flex-col">
+                <p className="text-md" style={{ fontWeight: 'bold', fontSize: '1.5rem', lineHeight: '1.8' }}>{doctor.name}</p>
+                <p className="text-small text-default-500">{doctor.speciality}</p>
+              </div>
+            </CardHeader>
+            <Divider />
+            {/* <CardBody>
+              <p>Doctor Id: {doctor.id}</p>
+              <p>Contact: {doctor.contact}</p>
+              <p>Location: {doctor.location}</p>
+            </CardBody>
+            <Divider /> */}
+            <CardFooter style={{ display: 'flex', justifyContent: 'center' }}>
+              <Button
+                color="#08d9d6"
+                style={{ borderRadius: '20px' }}
+                onClick={() => handleActionClick(doctor)}
+              >
+                Consult
+              </Button>
+            </CardFooter>
           </Card>
+          
         ))}
       </div>
+
+
       <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
         <Alert
           onClose={handleClose}

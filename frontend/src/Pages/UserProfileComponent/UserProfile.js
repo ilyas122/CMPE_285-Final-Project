@@ -61,62 +61,80 @@ function UserProfile() {
   return (
     <>
     <Header  data={pageName} />
-    <div style={{ backgroundColor: "#393E46", minHeight: "100vh", padding: "20px" }}>
-      <Header />
-      <div style={{ backgroundColor: "#08D9D6", padding: "20px", borderRadius: "10px", color: "#393E46" }}>
+    <div style={{ color: "#fff",  minHeight: "100vh", padding: "90px 20px 20px 20px" }}>
+      {/* <Header /> */}
+      <div style={{ color: "#fff",backgroundColor: "#000", padding: "20px 20px 20px 20px", borderRadius: "10px", border: "2px solid #08D9D6", color: "#393E46" }}>
         {user ? (
           <div>
             {editing ? (
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} style={{ color: 'black', backgroundColor: 'black', padding: '20px',  maxWidth: '300px' }}>
+              <div style={{ marginBottom: '10px' }}>
                 <input
                   type="text"
                   name="fullname"
                   value={formData.fullname}
                   onChange={handleChange}
                   placeholder="Full Name"
+                  style={{ marginBottom: '10px' }}
                 />
+              </div>
+              <div style={{ marginBottom: '10px' }}>
                 <input
                   type="text"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Email"
-                  disabled // Email cannot be edited
+                  disabled
+                  style={{ marginBottom: '10px' }}
                 />
+              </div>
+              <div style={{ marginBottom: '10px' }}>
                 <input
                   type="text"
                   name="doctor_id"
                   value={formData.doctor_id}
                   onChange={handleChange}
                   placeholder="Doctor Id"
-                  disabled // DoctorId cannot be edited
+                  disabled
+                  style={{ marginBottom: '10px' }}
                 />
+              </div>
+              <div style={{ marginBottom: '10px' }}>
                 <input
                   type="text"
                   name="location"
                   value={formData.location}
                   onChange={handleChange}
                   placeholder="Location"
+                  style={{ marginBottom: '10px' }}
                 />
+              </div>
+              <div style={{ marginBottom: '10px' }}>
                 <input
                   type="text"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   placeholder="Password"
+                  style={{ marginBottom: '10px' }}
                 />
-                {/* Display diseases */}
+              </div>
+              {/* Display diseases */}
+              <div style={{ marginBottom: '10px', color: 'white' }}>
                 <h2>Diseases:</h2>
                 <ul>
                   {formData.diseases.map((disease, index) => (
                     <li key={index}>{disease}</li>
                   ))}
                 </ul>
-                {/* Add other fields for editing */}
-                <button type="submit">Save</button>
-              </form>
+              </div>
+              {/* Add other fields for editing */}
+              <button type="submit" style={{ marginTop: '10px' }}>Save</button>
+            </form>
+            
             ) : (
-              <div>
+              <div style={{ color: "#fff"}}>
                 <p>Name: {user.fullname}</p>
                 <p>Email: {user.email}</p>
                 <p>Doctor Id: {user.doctor_id}</p>
